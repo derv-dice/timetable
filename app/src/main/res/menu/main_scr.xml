@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/settings_button"
+        android:icon="@drawable/ic_cog_settings"
+        android:title="@string/settings" />
+
+    <item
+        android:id="@+id/trash_button"
+        android:icon="@drawable/ic_trash_delete"
+        android:title="@string/delete" />
+
+    <item
+        android:id="@+id/add_button"
+        android:icon="@drawable/ic_plus_add"
+        android:title="@string/add" />
+
+    <item
+        android:id="@+id/menu_button"
+        android:icon="@drawable/ic_hamburger_button"
+        android:title="@string/menu"
+    />
+</menu>

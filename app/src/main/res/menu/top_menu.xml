@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/left_arrow_button"
+        android:icon="@drawable/ic_left_arrow_button"
+        android:title="@string/Next" />
+
+    <item
+        android:id="@+id/space1"
+        android:enabled="false"
+        android:title="@string/prev" />
+
+    <item
+        android:id="@+id/space2"
+        android:enabled="false"
+        android:title="@string/prev" />
+
+    <item
+        android:id="@+id/space3"
+        android:enabled="false"
+        android:title="@string/prev" />
+
+    <item
+        android:id="@+id/right_arrow_button"
+        android:icon="@drawable/ic_right_arrow_button"
+        android:title="@string/prev" />
+
+</menu>

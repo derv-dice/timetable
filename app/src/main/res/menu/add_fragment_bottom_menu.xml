@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/space1"
+        android:enabled="false"
+        android:title="@string/prev" />
+
+    <item
+        android:id="@+id/add_button_menu"
+        android:icon="@drawable/ic_plus_add"
+        android:title="@string/add" />
+
+    <item
+        android:id="@+id/space2"
+        android:enabled="false"
+        android:title="@string/prev" />
+</menu>

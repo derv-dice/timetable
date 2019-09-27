@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray"
+    tools:context=".MainActivity"
+    >
+
+    <TextView
+        android:id="@+id/Empty_Day_Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/top_navigation_menu"
+        android:layout_alignBottom="@+id/bottom_navigation_menu"
+        android:gravity="fill_horizontal|center_vertical"
+        android:text="@string/Empty_Day_String"
+        android:textAlignment="center"
+        android:textColor="@color/colorDarkGray"
+        android:textSize="28sp" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_menu"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorDarkGray"
+        app:itemIconTint="@color/colorLiteGray"
+        app:itemTextColor="@color/colorLiteGray"
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/main_scr" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/top_navigation_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:visibility="visible"
+        app:itemBackground="@color/colorDarkGray"
+        app:itemIconTint="@color/colorLiteGray"
+        app:itemTextColor="@color/colorLiteGray"
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/top_menu">
+
+        <TextView
+            android:id="@+id/day_of_the_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="5dp"
+
+            android:text="@string/header"
+            android:textAlignment="center"
+            android:textColor="@color/colorLiteGray"
+
+            android:textSize="28sp" />
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <ListView
+        android:id="@+id/List"
+        android:layout_width="match_parent"
+        android:layout_height="611dp"
+        android:layout_above="@+id/bottom_navigation_menu"
+        android:layout_below="@+id/Week_Stage">
+
+    </ListView>
+
+    <Button
+        android:id="@+id/Week_Stage"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/top_navigation_menu"
+        android:layout_marginTop="2dp"
+        android:background="@color/colorDarkGray"
+        android:text="@string/Week_1"
+        android:onClick="Change_Week_Stage"
+        android:textColor="@color/colorLiteGray" />
+
+    <TextView
+        android:id="@+id/debug_textview"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignBottom="@+id/List"
+        android:text="---"
+        android:textColor="@color/colorAccent" />
+
+</RelativeLayout>
