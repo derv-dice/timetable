@@ -33,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
 
     public ArrayList<Schedule_Item> Schedule_Items_List = new ArrayList<Schedule_Item>();
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        Update_List_via_Database(Week,Current_Day_Num);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Update_List_via_Database (Integer Week, Integer Day){
-        TextView debug = findViewById(R.id.debug_textview);
         ListView Main_List_View = findViewById(R.id.List);
         ArrayList<Schedule_Item> DB_Items_list = new ArrayList<>();
         SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("save_5.db", MODE_PRIVATE, null);
@@ -139,12 +144,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        debug.setText(debug.getText()+"     Column count-" + cursor.getColumnCount());
-        debug.setText(debug.getText()+"     Row Count-" + cursor.getCount());
-        debug.setText(debug.getText()+"     week-" + Week);
-        debug.setText(debug.getText()+"     day-" + Day);
+        TextView If_Day_Is_Empty = findViewById(R.id.Empty_Day_Text);
+
         if(cursor.moveToFirst()){
-            debug.setText(debug.getText()+"     FULL  ");
             do{
                 String time0 = cursor.getString(0);
                 String time1 = cursor.getString(1);
@@ -155,25 +157,22 @@ public class MainActivity extends AppCompatActivity {
                 String item_building = cursor.getString(6);
 
                 DB_Items_list.add(new Schedule_Item(time0, time1, item_name, teacher_name, item_mode, item_auditorium, item_building));
-                debug.setText(debug.getText()+ " " + time0+ " " + time1);
             }
             while(cursor.moveToNext());
         }
-        else{
-            debug.setText(debug.getText()+"     EMPTY  ");
+
+        GridListAdapter new_adapter = new GridListAdapter(MainActivity.this, DB_Items_list);
+        Main_List_View.setAdapter(new_adapter);
+
+        if (cursor.getCount() > 0){
+            If_Day_Is_Empty.setAlpha(0.0f);
+        }
+        else {
+            If_Day_Is_Empty.setAlpha(1.0f);
         }
 
         cursor.close();
         db.close();
-        try{
-            GridListAdapter new_adapter = new GridListAdapter(MainActivity.this, DB_Items_list);
-            Main_List_View.setAdapter(new_adapter);
-        }
-        catch (Exception e){
-            TextView temp = findViewById(R.id.Empty_Day_Text);  // ошибка может быть только если нужная таблица в бд пустая, значит пар сегодня нет
-            temp.setEnabled(true);                              // надпись об отсутствии пар включается
-            temp.setText(e.toString());
-        }
     }
 
 
@@ -195,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.trash_button: // Удаление строки
-                    debug();
+
                     break;
                 case R.id.settings_button:
 
@@ -207,22 +206,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
-
-    private void debug(){
-
-        try{
-            Update_List_via_Database(Week,Current_Day_Num);
-
-            TextView temp = findViewById(R.id.Empty_Day_Text);  // ошибка может быть только если нужная таблица в бд пустая, значит пар сегодня нет
-            temp.setEnabled(true);                              // надпись об отсутствии пар включается
-            temp.setText("Ok");
-        }
-        catch (Exception e){
-            TextView temp = findViewById(R.id.Empty_Day_Text);  // ошибка может быть только если нужная таблица в бд пустая, значит пар сегодня нет
-            temp.setEnabled(true);                              // надпись об отсутствии пар включается
-            temp.setText(e.toString());
-        }
-    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener top_menu_listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override

@@ -61,6 +61,8 @@
 
     <ListView
         android:id="@+id/List"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:layout_width="match_parent"
         android:layout_height="611dp"
         android:layout_above="@+id/bottom_navigation_menu"
@@ -79,13 +81,5 @@
         android:text="@string/Week_1"
         android:onClick="Change_Week_Stage"
         android:textColor="@color/colorLiteGray" />
-
-    <TextView
-        android:id="@+id/debug_textview"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_alignBottom="@+id/List"
-        android:text="---"
-        android:textColor="@color/colorAccent" />
 
 </RelativeLayout>

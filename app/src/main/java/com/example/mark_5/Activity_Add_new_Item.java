@@ -75,67 +75,53 @@ public class Activity_Add_new_Item extends AppCompatActivity {
                     switch (Current_Day_Num){
                         case 1:
                             db.insert("Monday_1",null, Val);
-                            db.setTransactionSuccessful();
                             break;
                         case 2:
                             db.insert("Tuesday_1",null, Val);
-                            db.setTransactionSuccessful();
                             break;
                         case 3:
                             db.insert("Wednesday_1",null, Val);
-                            db.setTransactionSuccessful();
                             break;
                         case 4:
                             db.insert("Thursday_1",null, Val);
-                            db.setTransactionSuccessful();
                             break;
                         case 5:
                             db.insert("Friday_1",null, Val);
-                            db.setTransactionSuccessful();
                             break;
                         case 6:
                             db.insert("Saturday_1",null, Val);
-                            db.setTransactionSuccessful();
                             break;
                         case 7:
                             db.insert("Sunday_1",null, Val);
-                            db.setTransactionSuccessful();
                             break;
                     }
                 case 2:   // ЗНАМЕНАТЕЛЬ
                     switch (Current_Day_Num){
                         case 1:
                             db.insert("Monday_2",null, Val);
-                            db.setTransactionSuccessful();
                             break;
                         case 2:
                             db.insert("Tuesday_2",null, Val);
-                            db.setTransactionSuccessful();
                             break;
                         case 3:
                             db.insert("Wednesday_2",null, Val);
-                            db.setTransactionSuccessful();
                             break;
                         case 4:
                             db.insert("Thursday_2",null, Val);
-                            db.setTransactionSuccessful();
                             break;
                         case 5:
                             db.insert("Friday_2",null, Val);
-                            db.setTransactionSuccessful();
                             break;
                         case 6:
                             db.insert("Saturday_2",null, Val);
-                            db.setTransactionSuccessful();
                             break;
                         case 7:
                             db.insert("Sunday_2",null, Val);
-                            db.setTransactionSuccessful();
                             break;
                     }
                 break;
             }
-
+            db.setTransactionSuccessful();
             db.endTransaction();
             db.close();
 
@@ -148,38 +134,5 @@ public class Activity_Add_new_Item extends AppCompatActivity {
             return true;
         }
     };
-
-    /*
-
-    private void transaction(Operation operation, T item, String filter) {
-    final SQLiteDatabase database = openHelper.getWritableDatabase();
-    database.beginTransaction();
-
-    try {
-        switch (operation) {
-            case Add:
-                try { // For debugging, to catch any possible exception
-                    ContentValues values = toContentValues.map(item);
-                    long result = database.insertOrThrow(tableName, null, values);
-                    String temp = ""; // For debugging
-                } catch (Exception e) {
-                    String message = e.getMessage(); // For debugging
-                }
-                break;
-            case Update:
-                database.update(tableName, toContentValues.map(item), filter, null);
-                break;
-            case Delete:
-                database.delete(tableName, filter, null);
-                break;
-        }
-        database.setTransactionSuccessful(); // Added this.
-    } finally {
-        database.endTransaction();
-        database.close();
-    }
-}
-
-    */
 
 }
