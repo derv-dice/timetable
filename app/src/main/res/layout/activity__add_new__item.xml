@@ -1,95 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorGray"
     tools:context=".Activity_Add_new_Item">
 
-    <EditText
-        android:id="@+id/editText4"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="Начало пары"
-        android:inputType="time"
-        android:singleLine="false"
-        android:textColor="@color/colorLiteGray" />
-
-    <EditText
-        android:id="@+id/editText5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText4"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="Конец пары"
-        android:inputType="time" />
-
-    <EditText
-        android:id="@+id/editText6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText5"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="Название предмета"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/editText7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText6"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="Имя преподавателя"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/editText8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText7"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="Тип занятия (лекция, семинар и т.д.)"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/editText9"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText8"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="Номер аудитории"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/editText10"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_above="@+id/bot_menu_add_fragment"
-        android:layout_below="@id/editText9"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="351dp"
-        android:ems="10"
-        android:hint="Номер корпуса"
-        android:inputType="textPersonName" />
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="393dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Начало пары"
+            android:inputType="time"
+            android:singleLine="false"
+            android:textColor="@color/colorLiteGray"
+            tools:layout_editor_absoluteY="10dp" />
+
+        <EditText
+            android:id="@+id/editText5"
+            android:layout_width="393dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Конец пары"
+            android:inputType="time"
+            tools:layout_editor_absoluteY="67dp" />
+
+        <EditText
+            android:id="@+id/editText6"
+            android:layout_width="393dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Название предмета"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteY="122dp" />
+
+        <EditText
+            android:id="@+id/editText7"
+            android:layout_width="393dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Имя преподавателя"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteY="179dp" />
+
+        <EditText
+            android:id="@+id/editText8"
+            android:layout_width="393dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Тип занятия (лекция, семинар и т.д.)"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteY="235dp" />
+
+        <EditText
+            android:id="@+id/editText9"
+            android:layout_width="393dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Номер аудитории"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteY="291dp" />
+
+        <EditText
+            android:id="@+id/editText10"
+            android:layout_width="393dp"
+            android:layout_height="wrap_content"
+
+            android:ems="10"
+            android:hint="Номер корпуса"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteY="347dp" />
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bot_menu_add_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
         android:layout_alignParentBottom="true"
         android:background="@color/colorDarkGray"
         app:itemIconTint="@color/colorLiteGray"
         app:itemTextColor="@color/colorLiteGray"
         app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/add_fragment_bottom_menu" />
+        app:menu="@menu/add_fragment_bottom_menu"
+        tools:layout_editor_absoluteY="743dp" >
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </RelativeLayout>

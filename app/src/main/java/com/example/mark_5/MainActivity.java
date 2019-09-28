@@ -30,11 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private int Current_Day_Num = 1;
     private int Week = 1;
     private Button Week_Btn;
-    //private ListView Main_List;
-    Cursor query = null;
 
     public ArrayList<Schedule_Item> Schedule_Items_List = new ArrayList<Schedule_Item>();
-    //GridListAdapter adapter;
 
 
     @Override
@@ -42,6 +39,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        {
+            SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("save_4.db", MODE_PRIVATE, null);
+            db.execSQL("CREATE TABLE IF NOT EXISTS Monday_1 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
+            db.execSQL("CREATE TABLE IF NOT EXISTS Tuesday_1 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
+            db.execSQL("CREATE TABLE IF NOT EXISTS Wednesday_1 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
+            db.execSQL("CREATE TABLE IF NOT EXISTS Thursday_1 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
+            db.execSQL("CREATE TABLE IF NOT EXISTS Friday_1 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
+            db.execSQL("CREATE TABLE IF NOT EXISTS Saturday_1 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
+            db.execSQL("CREATE TABLE IF NOT EXISTS Sunday_1 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
+            db.execSQL("CREATE TABLE IF NOT EXISTS Monday_2 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
+            db.execSQL("CREATE TABLE IF NOT EXISTS Tuesday_2 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
+            db.execSQL("CREATE TABLE IF NOT EXISTS Wednesday_2 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
+            db.execSQL("CREATE TABLE IF NOT EXISTS Thursday_2 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
+            db.execSQL("CREATE TABLE IF NOT EXISTS Friday_2 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
+            db.execSQL("CREATE TABLE IF NOT EXISTS Saturday_2 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
+            db.execSQL("CREATE TABLE IF NOT EXISTS Sunday_2 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
+            db.close();
+        }// Создание базы данных, если ее нет
 
         BottomNavigationView Top_Menu = findViewById(R.id.top_navigation_menu); // Верхние и нижние MenuBar
         Top_Menu.setOnNavigationItemSelectedListener(top_menu_listener);
@@ -71,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         TextView debug = findViewById(R.id.debug_textview);
         ListView Main_List_View = findViewById(R.id.List);
         ArrayList<Schedule_Item> DB_Items_list = new ArrayList<>();
-        SQLiteDatabase db = getBaseContext().openOrCreateDatabase("save_2.db", MODE_PRIVATE, null);
+        SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("save_4.db", MODE_PRIVATE, null);
         Cursor cursor = null;
 
         switch (Week){  // В зависимости от текущей недели и дня недели выбирается нужная таблица из базы данных save_n.db
@@ -127,8 +142,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        debug.setText(debug.getText()+"     Column count  " + cursor.getColumnCount());
-        debug.setText(debug.getText()+"     Count  " + cursor.getCount());
+        debug.setText(debug.getText()+"     Column count-" + cursor.getColumnCount());
+        debug.setText(debug.getText()+"     Row Count-" + cursor.getCount());
         debug.setText(debug.getText()+"     week-" + Week);
         debug.setText(debug.getText()+"     day-" + Day);
         if(cursor.moveToFirst()){
@@ -176,10 +191,8 @@ public class MainActivity extends AppCompatActivity {
                 case  R.id.add_button: // Добавление строки в список предметов
                     Intent intent = new Intent(MainActivity.this, Activity_Add_new_Item.class);
 
-                    String temp = String.valueOf(Current_Day_Num);
-                    String temp2 = String.valueOf(Week);
-                    intent.putExtra("Day", temp);
-                    intent.putExtra("Week", temp2);
+                    intent.putExtra("Day", Current_Day_Num);
+                    intent.putExtra("Week", Week);
 
                     intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
