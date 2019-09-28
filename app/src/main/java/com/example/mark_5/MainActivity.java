@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         {
-            SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("save_4.db", MODE_PRIVATE, null);
+            SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("save_5.db", MODE_PRIVATE, null);
             db.execSQL("CREATE TABLE IF NOT EXISTS Monday_1 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
             db.execSQL("CREATE TABLE IF NOT EXISTS Tuesday_1 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
             db.execSQL("CREATE TABLE IF NOT EXISTS Wednesday_1 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
@@ -63,9 +63,6 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView Bot_Menu = findViewById(R.id.bottom_navigation_menu);
         Bot_Menu.setOnNavigationItemSelectedListener(bot_menu_listener);
 
-        //Main_List = (ListView) findViewById(R.id.List);
-        //Main_List.setAdapter(adapter);
-
         Update_List_via_Database(Week,Current_Day_Num);
     }
 
@@ -86,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         TextView debug = findViewById(R.id.debug_textview);
         ListView Main_List_View = findViewById(R.id.List);
         ArrayList<Schedule_Item> DB_Items_list = new ArrayList<>();
-        SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("save_4.db", MODE_PRIVATE, null);
+        SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("save_5.db", MODE_PRIVATE, null);
         Cursor cursor = null;
 
         switch (Week){  // В зависимости от текущей недели и дня недели выбирается нужная таблица из базы данных save_n.db
