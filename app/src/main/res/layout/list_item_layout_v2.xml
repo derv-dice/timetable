@@ -5,108 +5,176 @@
     android:id="@+id/relativeLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="true">
+    android:clickable="true"
+    android:focusable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="140dp"
         android:background="@drawable/ic_mainlistrow_v2_background_picture"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_50_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_25_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_75_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_horizontal_32_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.32" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_horizontal_16_percent2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.16" />
+
         <Button
-            android:id="@+id/button_additional_info"
+            android:id="@+id/button2"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="40px"
-            android:layout_height="50px"
-            android:layout_marginTop="55dp"
-            android:layout_marginEnd="9dp"
-            android:layout_marginRight="9dp"
+            android:layout_width="41dp"
+            android:layout_height="54dp"
             android:background="@drawable/ic_mainlistrow_v2_file_btn"
-            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/button_marker"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="44px"
-            android:layout_height="54px"
-            android:layout_marginTop="26dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:background="@drawable/ic_mainlistrow_v2_unchecked_mark_btn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/guideline_75_percent"
+            app:layout_constraintTop_toTopOf="@+id/guideline_horizontal_32_percent" />
 
         <TextView
-            android:id="@+id/textView_time"
-            android:layout_width="97dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:maxLength="13"
-            android:text="00:00 - 00:00"
+            android:id="@+id/textView_time0"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:gravity="center"
+            android:text="time0"
             android:textAlignment="center"
             android:textColor="@color/colorLiteGray"
-            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_16_percent2"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_25_percent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView_item_mode"
-            android:layout_width="98dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="1dp"
-            android:maxLength="9"
-            android:text="Семинар"
-            android:textAlignment="center"
-            android:textColor="@color/colorLiteGray"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/textView_time"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView_item_auditorium"
-            android:layout_width="98dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="1dp"
-            android:maxLength="9"
-            android:text="ауд. 0000"
-            android:textAlignment="center"
-            android:textColor="@color/colorLiteGray"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/textView_item_mode"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView_item_building"
-            android:layout_width="97dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="1dp"
-            android:maxLength="10"
-            android:text="к. 0000000"
-            android:textAlignment="center"
-            android:textColor="@color/colorLiteGray"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/textView_item_auditorium"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView_item_name"
-            android:layout_width="361dp"
-            android:layout_height="52dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginLeft="3dp"
-            android:maxLength="117"
-            android:text="Название предмета"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="2dp"
+            android:gravity="center"
+            android:text="item_name"
+            android:textAlignment="center"
             android:textColor="@color/colorLiteGray"
-            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_75_percent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_time" />
+            app:layout_constraintTop_toTopOf="@+id/guideline_horizontal_32_percent" />
+
+        <TextView
+            android:id="@+id/textView_item_mode"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:gravity="center"
+            android:text="Item_mode"
+            android:textAlignment="center"
+            android:textColor="@color/colorLiteGray"
+            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_32_percent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_50_percent"
+            app:layout_constraintStart_toStartOf="@+id/guideline_25_percent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_item_auditorium"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:gravity="center"
+            android:text="auditorium"
+            android:textAlignment="center"
+            android:textColor="@color/colorLiteGray"
+            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_32_percent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_75_percent"
+            app:layout_constraintStart_toStartOf="@+id/guideline_50_percent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/textView_item_building"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:gravity="center"
+            android:text="building"
+            android:textAlignment="center"
+            android:textColor="@color/colorLiteGray"
+            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_32_percent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline_75_percent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/textView_time1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:gravity="center"
+            android:text="time1"
+            android:textAlignment="center"
+            android:textColor="@color/colorLiteGray"
+            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_32_percent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_25_percent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline_horizontal_16_percent2" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,11 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class GridListAdapter extends BaseAdapter {
@@ -48,17 +43,30 @@ public class GridListAdapter extends BaseAdapter {
         // используем созданные, но не используемые view
         View view = convertView;
         if (view == null) {
-            view = lInflater.inflate(R.layout.list_item_layout, parent, false);
+            view = lInflater.inflate(R.layout.list_item_layout_v2, parent, false);
         }
 
         Schedule_Item schedule_item = getItem_List(position);
 
-        String time = schedule_item.getTime0() + "&#10;" + schedule_item.getTime1();
+        TextView text_view_time0 = view.findViewById(R.id.textView_time0);
+        text_view_time0.setText(schedule_item.getTime0());
 
-        ((Button) view.findViewById(R.id.btn_1)).setText(time);
-        ((Button) view.findViewById(R.id.btn_2)).setText(schedule_item.getItem_Name());
-        ((Button) view.findViewById(R.id.btn_3)).setText(schedule_item.getItem_Mode());
-        ((Button) view.findViewById(R.id.btn_4)).setText(schedule_item.getItem_Auditorium());
+        TextView text_view_time1 = view.findViewById(R.id.textView_time1);
+        text_view_time1.setText(schedule_item.getTime1());
+
+        TextView text_view_item_mode = view.findViewById(R.id.textView_item_mode);
+        text_view_item_mode.setText(schedule_item.getItem_Mode());
+
+        TextView text_view_item_auditorium = view.findViewById(R.id.textView_item_auditorium);
+        text_view_item_auditorium.setText("ауд. " + schedule_item.getItem_Auditorium());
+
+        TextView text_view_item_building = view.findViewById(R.id.textView_item_building);
+        text_view_item_building.setText("к. " + schedule_item.getItem_Building());
+
+        TextView text_view_item_name = view.findViewById(R.id.textView_item_name);
+        text_view_item_name.setText(schedule_item.getItem_Name());
+
+        //((Button) view.findViewById(R.id.btn_2)).setText(schedule_item.getItem_Name());
 
         return view;
     }
