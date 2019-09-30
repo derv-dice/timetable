@@ -17,65 +17,77 @@
 
         <EditText
             android:id="@+id/editText4"
-            android:layout_width="393dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Начало пары"
             android:inputType="time"
             android:singleLine="false"
             android:textColor="@color/colorLiteGray"
+            android:textColorLink="@color/colorLiteGray"
             tools:layout_editor_absoluteY="10dp" />
 
         <EditText
             android:id="@+id/editText5"
-            android:layout_width="393dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Конец пары"
+            android:textColor="@color/colorLiteGray"
+            android:textColorLink="@color/colorLiteGray"
             android:inputType="time"
             tools:layout_editor_absoluteY="67dp" />
 
         <EditText
             android:id="@+id/editText6"
-            android:layout_width="393dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Название предмета"
+            android:textColor="@color/colorLiteGray"
+            android:textColorLink="@color/colorLiteGray"
             android:inputType="textPersonName"
             tools:layout_editor_absoluteY="122dp" />
 
         <EditText
             android:id="@+id/editText7"
-            android:layout_width="393dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Имя преподавателя"
+            android:textColor="@color/colorLiteGray"
+            android:textColorLink="@color/colorLiteGray"
             android:inputType="textPersonName"
             tools:layout_editor_absoluteY="179dp" />
 
         <EditText
             android:id="@+id/editText8"
-            android:layout_width="393dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Тип занятия (лекция, семинар и т.д.)"
+            android:textColor="@color/colorLiteGray"
+            android:textColorLink="@color/colorLiteGray"
             android:inputType="textPersonName"
             tools:layout_editor_absoluteY="235dp" />
 
         <EditText
             android:id="@+id/editText9"
-            android:layout_width="393dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Номер аудитории"
+            android:textColor="@color/colorLiteGray"
+            android:textColorLink="@color/colorLiteGray"
             android:inputType="textPersonName"
             tools:layout_editor_absoluteY="291dp" />
 
         <EditText
             android:id="@+id/editText10"
-            android:layout_width="393dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:textColor="@color/colorLiteGray"
+            android:textColorLink="@color/colorLiteGray"
             android:ems="10"
             android:hint="Номер корпуса"
             android:inputType="textPersonName"
