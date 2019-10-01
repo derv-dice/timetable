@@ -9,9 +9,12 @@
     android:focusable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Item_List_Layout"
         android:layout_width="match_parent"
         android:layout_height="140dp"
         android:background="@drawable/ic_mainlistrow_v2_background_picture"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.75" />
+            app:layout_constraintGuide_begin="295dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_horizontal_32_percent"
@@ -55,11 +58,12 @@
             app:layout_constraintGuide_percent="0.16" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/file_button"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="41dp"
             android:layout_height="54dp"
             android:background="@drawable/ic_mainlistrow_v2_file_btn"
+            android:enabled="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline_75_percent"

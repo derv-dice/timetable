@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -20,6 +21,8 @@ import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +30,15 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private GridListAdapter Main_adapter;
+    private ListView Main_ListView;
     private int Current_Day_Num = 1;
     private int Week = 1;
     private Button Week_Btn;
+    private ArrayList<Schedule_Item> DB_Items_list;
+
+    private int Selected_Item_Position = 0;
+    private BottomNavigationView edit_mode_menu;
 
     public ArrayList<Schedule_Item> Schedule_Items_List = new ArrayList<Schedule_Item>();
 
@@ -44,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        edit_mode_menu = findViewById(R.id.edit_mode_menu);
+        edit_mode_menu.setVisibility(View.INVISIBLE);
 
         {
             SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("save_6.db", MODE_PRIVATE, null);
@@ -70,7 +81,31 @@ public class MainActivity extends AppCompatActivity {
         Bot_Menu.setOnNavigationItemSelectedListener(bot_menu_listener);
 
         Update_List_via_Database(Week,Current_Day_Num);
+
+/*
+        Main_ListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(MainActivity.this, String.valueOf(position) , Toast.LENGTH_LONG).show();
+
+                return true;
+            }
+        });
+
+ */
+
+
     }
+
+    /*
+    @Override
+    public void onBackPressed() {
+
+    }
+
+     */
+
 
     public void Change_Week_Stage(View view){
         Week_Btn = findViewById(R.id.Week_Stage);
@@ -85,9 +120,11 @@ public class MainActivity extends AppCompatActivity {
         Update_List_via_Database(Week,Current_Day_Num);
     }
 
+
+
     public void Update_List_via_Database (Integer Week, Integer Day){
-        ListView Main_List_View = findViewById(R.id.List);
-        ArrayList<Schedule_Item> DB_Items_list = new ArrayList<>();
+        Main_ListView = findViewById(R.id.List);
+        DB_Items_list = new ArrayList<>();
         SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("save_6.db", MODE_PRIVATE, null);
         Cursor cursor = null;
 
@@ -164,9 +201,9 @@ public class MainActivity extends AppCompatActivity {
             DB_Items_list.clear();
         }
 
-        GridListAdapter new_adapter = new GridListAdapter(MainActivity.this, DB_Items_list);
-        Main_List_View.setAdapter(new_adapter);
-        new_adapter.notifyDataSetChanged();
+        Main_adapter = new GridListAdapter(MainActivity.this, DB_Items_list);
+        Main_ListView.setAdapter(Main_adapter);
+        Main_adapter.notifyDataSetChanged();
 
         if (cursor.getCount() > 0){
             If_Day_Is_Empty.setAlpha(0.0f);
@@ -178,9 +215,6 @@ public class MainActivity extends AppCompatActivity {
         cursor.close();
         db.close();
     }
-
-
-
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener bot_menu_listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -196,9 +230,6 @@ public class MainActivity extends AppCompatActivity {
 
                     intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
-                    break;
-                case R.id.trash_button: // Удаление строки
-
                     break;
                 case R.id.settings_button:
 

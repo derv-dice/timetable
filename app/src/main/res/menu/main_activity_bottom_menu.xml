@@ -7,11 +7,6 @@
         android:title="@string/settings" />
 
     <item
-        android:id="@+id/trash_button"
-        android:icon="@drawable/ic_trash_delete"
-        android:title="@string/delete" />
-
-    <item
         android:id="@+id/add_button"
         android:icon="@drawable/ic_plus_add"
         android:title="@string/add" />

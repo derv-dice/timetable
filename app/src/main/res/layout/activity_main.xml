@@ -23,13 +23,15 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_menu"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="42dp"
         android:layout_alignParentBottom="true"
         android:background="@color/colorDarkGray"
         app:itemIconTint="@color/colorLiteGray"
         app:itemTextColor="@color/colorLiteGray"
         app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/main_scr" />
+        app:menu="@menu/main_activity_bottom_menu">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/top_navigation_menu"
@@ -61,12 +63,17 @@
 
     <ListView
         android:id="@+id/List"
+        style="@android:style/Widget.Holo.ExpandableListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation_menu"
+        android:layout_below="@+id/Week_Stage"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
-        android:layout_width="match_parent"
-        android:layout_height="611dp"
-        android:layout_above="@+id/bottom_navigation_menu"
-        android:layout_below="@+id/Week_Stage">
+        android:choiceMode="none"
+        android:clickable="true"
+        android:focusable="true"
+        android:longClickable="true">
 
     </ListView>
 
@@ -81,5 +88,18 @@
         android:text="@string/Week_1"
         android:onClick="Change_Week_Stage"
         android:textColor="@color/colorLiteGray" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/edit_mode_menu"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_alignBottom="@+id/List"
+        android:background="@color/colorDarkGray"
+        android:visibility="visible"
+        app:itemIconTint="@color/colorLiteGray"
+        app:itemTextColor="@color/colorLiteGray"
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/main_activity_bottom_selected_item_menu"
+        />
 
 </RelativeLayout>

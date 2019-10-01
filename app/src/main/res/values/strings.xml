@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">mark_5</string>
-    <string name="settings">Settings</string>
-    <string name="delete">Delete</string>
-    <string name="add">Add</string>
-    <string name="menu">Menu</string>
+    <string name="app_name">Расписание пар</string>
+    <string name="settings">Настройки</string>
+    <string name="delete">Удалить</string>
+    <string name="add">Добавить</string>
+    <string name="menu">Сегодня</string>
     <string name="Next">Next</string>
     <string name="prev">Prev</string>
     <string name="header">Понедельник</string>
