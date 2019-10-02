@@ -48,23 +48,31 @@ public class GridListAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
-        Button file = view.findViewById(R.id.file_button);
-        ConstraintLayout Item_Layout_Field = view.findViewById(R.id.Item_List_Layout);
-        final Schedule_Item schedule_item = getItem_List(position);
-
         if (view == null) {
             view = lInflater.inflate(R.layout.list_item_layout_v2, parent, false);
         }
 
+        Button file = view.findViewById(R.id.file_button);
+        file.setVisibility(View.INVISIBLE);
+
+        //ConstraintLayout Item_Layout_Field = view.findViewById(R.id.Item_List_Layout);
+        Schedule_Item schedule_item = getItem_List(position);
+
+        /*
         if (schedule_item.getTime0().equals("0")){
             file.setVisibility(View.INVISIBLE);
         }
+
+         */
 
         TextView text_view_time0 = view.findViewById(R.id.textView_time0);
         text_view_time0.setText(schedule_item.getTime0());
 
         TextView text_view_time1 = view.findViewById(R.id.textView_time1);
         text_view_time1.setText(schedule_item.getTime1());
+
+        TextView textView_item_teacher = view.findViewById(R.id.textView_item_teacher);
+        textView_item_teacher.setText(schedule_item.getTeacher_Name());
 
         TextView text_view_item_mode = view.findViewById(R.id.textView_item_mode);
         text_view_item_mode.setText(schedule_item.getItem_Mode());
@@ -78,7 +86,7 @@ public class GridListAdapter extends BaseAdapter {
         TextView text_view_item_name = view.findViewById(R.id.textView_item_name);
         text_view_item_name.setText(schedule_item.getItem_Name());
 
-
+/*
         final View finalView = view;
         file.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +94,8 @@ public class GridListAdapter extends BaseAdapter {
                 Toast.makeText(finalView.getContext(),"1"+"\n"+"2" , Toast.LENGTH_LONG).show();
             }
         });
+
+ */
 
         return view;
     }

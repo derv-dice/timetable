@@ -3,6 +3,8 @@ package com.example.mark_5;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.RemoteInput;
+
+import android.app.LauncherActivity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.app.Activity;
@@ -23,6 +25,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,12 +38,11 @@ public class MainActivity extends AppCompatActivity {
     private int Current_Day_Num = 1;
     private int Week = 1;
     private Button Week_Btn;
-    private ArrayList<Schedule_Item> DB_Items_list;
+    public ArrayList<Schedule_Item> DB_Items_list = new ArrayList<Schedule_Item>();
 
     private int Selected_Item_Position = 0;
     private BottomNavigationView edit_mode_menu;
 
-    public ArrayList<Schedule_Item> Schedule_Items_List = new ArrayList<Schedule_Item>();
 
     @Override
     protected void onResume()
@@ -53,9 +55,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        edit_mode_menu = findViewById(R.id.edit_mode_menu);
-        edit_mode_menu.setVisibility(View.INVISIBLE);
-        edit_mode_menu.setEnabled(false);
 
         {
             SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("save_7.db", MODE_PRIVATE, null);
@@ -80,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
         Top_Menu.setOnNavigationItemSelectedListener(top_menu_listener);
         BottomNavigationView Bot_Menu = findViewById(R.id.bottom_navigation_menu);
         Bot_Menu.setOnNavigationItemSelectedListener(bot_menu_listener);
+        edit_mode_menu = findViewById(R.id.edit_mode_menu);
+        edit_mode_menu.setVisibility(View.INVISIBLE);
+        edit_mode_menu.setEnabled(false);
 
         Update_List_via_Database(Week,Current_Day_Num);
 
@@ -131,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void Update_List_via_Database (Integer Week, Integer Day){
         Main_ListView = findViewById(R.id.List);
-        DB_Items_list = new ArrayList<>();
+        DB_Items_list.clear();
         SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("save_7.db", MODE_PRIVATE, null);
         Cursor cursor = null;
 
@@ -204,9 +206,7 @@ public class MainActivity extends AppCompatActivity {
             }
             while(cursor.moveToNext());
         }
-        else{
-            DB_Items_list.clear();
-        }
+
 
         Main_adapter = new GridListAdapter(MainActivity.this, DB_Items_list);
         Main_ListView.setAdapter(Main_adapter);

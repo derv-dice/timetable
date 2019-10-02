@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="295dp" />
+            app:layout_constraintGuide_percent="0.75" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_horizontal_32_percent"
@@ -96,7 +96,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="2dp"
             android:layout_marginRight="2dp"
-            android:layout_marginBottom="2dp"
+            android:layout_marginBottom="30dp"
             android:gravity="center"
             android:text="item_name"
             android:textAlignment="center"
@@ -105,6 +105,22 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline_75_percent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline_horizontal_32_percent" />
+
+        <TextView
+            android:id="@+id/textView_item_teacher"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:gravity="center"
+            android:text="teacher_name"
+            android:textColor="@color/colorLiteGray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_75_percent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_item_name" />
 
         <TextView
             android:id="@+id/textView_item_mode"
