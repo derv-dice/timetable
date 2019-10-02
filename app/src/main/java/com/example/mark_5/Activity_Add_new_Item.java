@@ -20,8 +20,8 @@ public class Activity_Add_new_Item extends AppCompatActivity {
 
     public TextView t1, t2, t3, t4,t5, t6, t7;
     public String t1_str, t2_str, t3_str, t4_str, t5_str, t6_str, t7_str;
-    private int Current_Day_Num = 10;
-    private int Current_Week = 10;
+    private int Current_Day_Num = 0;
+    private int Current_Week = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class Activity_Add_new_Item extends AppCompatActivity {
             Val.put("item_auditorium", t6_str);
             Val.put("item_building", t7_str);
 
-            SQLiteDatabase db = openOrCreateDatabase("save_6.db", MODE_PRIVATE, null);
+            SQLiteDatabase db = openOrCreateDatabase("save_7.db", MODE_PRIVATE, null);
             switch (Current_Week){
                 case 1:   // ЧИСЛИТЕЛЬ
                     switch (Current_Day_Num){

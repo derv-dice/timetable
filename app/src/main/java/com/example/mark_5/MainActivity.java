@@ -55,9 +55,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         edit_mode_menu = findViewById(R.id.edit_mode_menu);
         edit_mode_menu.setVisibility(View.INVISIBLE);
+        edit_mode_menu.setEnabled(false);
 
         {
-            SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("save_6.db", MODE_PRIVATE, null);
+            SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("save_7.db", MODE_PRIVATE, null);
             db.execSQL("CREATE TABLE IF NOT EXISTS Monday_1 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
             db.execSQL("CREATE TABLE IF NOT EXISTS Tuesday_1 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
             db.execSQL("CREATE TABLE IF NOT EXISTS Wednesday_1 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
@@ -98,13 +99,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*
+
     @Override
     public void onBackPressed() {
-
+        if (edit_mode_menu.isEnabled()){
+            edit_mode_menu.setEnabled(false);
+            edit_mode_menu.setVisibility(View.INVISIBLE);
+        }
+        else{
+            finish();
+        }
     }
 
-     */
+
 
 
     public void Change_Week_Stage(View view){
@@ -125,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
     public void Update_List_via_Database (Integer Week, Integer Day){
         Main_ListView = findViewById(R.id.List);
         DB_Items_list = new ArrayList<>();
-        SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("save_6.db", MODE_PRIVATE, null);
+        SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("save_7.db", MODE_PRIVATE, null);
         Cursor cursor = null;
 
         switch (Week){  // В зависимости от текущей недели и дня недели выбирается нужная таблица из базы данных save_n.db
@@ -232,7 +239,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.settings_button:
-
+                    edit_mode_menu.setEnabled(true);
+                    edit_mode_menu.setVisibility(View.VISIBLE);
                     break;
                 case R.id.menu_button:
 
