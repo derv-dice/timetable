@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#1A1A1A</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#1f1f1f</color>
 
     <color name="colorDarkGray">#1A1A1A</color>
     <color name="colorLiteGray">#e5e5e5</color>
@@ -13,4 +13,7 @@
     <color name="Dark_Theme_Gray_Dark">#0f0f0f</color>
     <color name="Dark_Theme_Gray">#1f1f1f</color>
     <color name="Dark_Theme_Gray_Lite">#353535</color>
+
+    <color name="Mark_Checked">#a22a4d</color>
+
 </resources>

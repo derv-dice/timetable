@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGray"
-    tools:context=".MainActivity"
-    >
+    android:background="@color/Dark_Theme_Gray_Dark"
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/Empty_Day_Text"
@@ -17,7 +16,7 @@
         android:gravity="fill_horizontal|center_vertical"
         android:text="@string/Empty_Day_String"
         android:textAlignment="center"
-        android:textColor="@color/colorDarkGray"
+        android:textColor="@color/Dark_Theme_Font_Dark"
         android:textSize="28sp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -25,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorDarkGray"
+        android:background="@color/Dark_Theme_Gray"
         app:itemIconTint="@color/colorLiteGray"
         app:itemTextColor="@color/colorLiteGray"
         app:labelVisibilityMode="unlabeled"
@@ -39,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:visibility="visible"
-        app:itemBackground="@color/colorDarkGray"
+        app:itemBackground="@color/Dark_Theme_Gray"
         app:itemIconTint="@color/colorLiteGray"
         app:itemTextColor="@color/colorLiteGray"
         app:labelVisibilityMode="unlabeled"
@@ -56,7 +55,7 @@
 
             android:text="@string/header"
             android:textAlignment="center"
-            android:textColor="@color/colorLiteGray"
+            android:textColor="@color/Dark_Theme_Font_Light"
 
             android:textSize="28sp" />
     </com.google.android.material.bottomnavigation.BottomNavigationView>
@@ -72,6 +71,8 @@
         android:layout_marginBottom="2dp"
         android:choiceMode="none"
         android:clickable="true"
+        android:divider="@color/Dark_Theme_Gray_Dark"
+        android:dividerHeight="2dp"
         android:focusable="true"
         android:longClickable="true">
 
@@ -84,9 +85,9 @@
         android:layout_height="30dp"
         android:layout_below="@+id/top_navigation_menu"
         android:layout_marginTop="2dp"
-        android:background="@color/colorDarkGray"
-        android:text="@string/Week_1"
+        android:background="@color/Dark_Theme_Gray"
         android:onClick="Change_Week_Stage"
+        android:text="@string/Week_1"
         android:textColor="@color/colorLiteGray" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -94,12 +95,11 @@
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:layout_alignBottom="@+id/List"
-        android:background="@color/colorDarkGray"
+        android:background="@color/Dark_Theme_Gray"
         android:visibility="visible"
         app:itemIconTint="@color/colorLiteGray"
         app:itemTextColor="@color/colorLiteGray"
         app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/main_activity_bottom_selected_item_menu"
-        />
+        app:menu="@menu/main_activity_bottom_selected_item_menu" />
 
 </RelativeLayout>

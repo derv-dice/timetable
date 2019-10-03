@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.RemoteInput;
 
+import android.annotation.SuppressLint;
 import android.app.LauncherActivity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private int Current_Day_Num = 1;
     private int Week = 1;
     private Button Week_Btn;
-    public ArrayList<Schedule_Item> DB_Items_list = new ArrayList<Schedule_Item>();
+    public ArrayList<Schedule_Item> DB_Items_list;// = new ArrayList<Schedule_Item>();
 
     private int Selected_Item_Position = 0;
     private BottomNavigationView edit_mode_menu;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         Update_List_via_Database(Week,Current_Day_Num);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +87,15 @@ public class MainActivity extends AppCompatActivity {
 
         Update_List_via_Database(Week,Current_Day_Num);
 
-/*
+        Main_ListView.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
+            public void onSwipeRight() {
+                Day_Change_Right();
+            }
+            public void onSwipeLeft() {
+                Day_Change_Left();
+            }
+        });
+
         Main_ListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -95,12 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
- */
-
-
     }
-
 
     @Override
     public void onBackPressed() {
@@ -113,8 +118,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
+    private void Week_Change_Swipe(){
+        Week_Btn = findViewById(R.id.Week_Stage);
+        if (Week == 1){
+            Week = 2;
+            Week_Btn.setText(R.string.Week_2);
+        }
+        else{
+            Week = 1;
+            Week_Btn.setText(R.string.Week_1);
+        }
+        Update_List_via_Database(Week,Current_Day_Num);
+    }
 
     public void Change_Week_Stage(View view){
         Week_Btn = findViewById(R.id.Week_Stage);
@@ -133,7 +148,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void Update_List_via_Database (Integer Week, Integer Day){
         Main_ListView = findViewById(R.id.List);
-        DB_Items_list.clear();
+        //DB_Items_list.clear();
+        DB_Items_list = new ArrayList<Schedule_Item>();
         SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("save_7.db", MODE_PRIVATE, null);
         Cursor cursor = null;
 
@@ -250,94 +266,104 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private void Day_Change_Right(){
+        TextView Header = findViewById(R.id.day_of_the_week);
+        switch (Header.getText().toString()){
+            case "Понедельник":
+                Header.setText("Воскресенье");
+                Current_Day_Num = 7;
+
+                break;
+            case "Воскресенье":
+                Header.setText("Суббота");
+                Current_Day_Num = 6;
+
+                break;
+            case "Суббота":
+                Header.setText("Пятница");
+                Current_Day_Num = 5;
+
+                break;
+            case "Пятница":
+                Header.setText("Четверг");
+                Current_Day_Num = 4;
+
+                break;
+            case "Четверг":
+                Header.setText("Среда");
+                Current_Day_Num = 3;
+
+                break;
+            case "Среда":
+                Header.setText("Вторник");
+                Current_Day_Num = 2;
+
+                break;
+            case "Вторник":
+                Header.setText("Понедельник");
+                Current_Day_Num = 1;
+
+                break;
+        }
+        Update_List_via_Database(Week,Current_Day_Num);
+    }
+
+    private void Day_Change_Left(){
+        TextView Header = findViewById(R.id.day_of_the_week);
+        switch (Header.getText().toString()){
+            case "Понедельник":
+                Header.setText("Вторник");
+                Current_Day_Num = 2;
+
+                break;
+            case "Вторник":
+                Header.setText("Среда");
+                Current_Day_Num = 3;
+
+                break;
+            case "Среда":
+                Header.setText("Четверг");
+                Current_Day_Num = 4;
+
+                break;
+            case "Четверг":
+                Header.setText("Пятница");
+                Current_Day_Num = 5;
+
+                break;
+            case "Пятница":
+                Header.setText("Суббота");
+                Current_Day_Num = 6;
+
+                break;
+            case "Суббота":
+                Header.setText("Воскресенье");
+                Current_Day_Num = 7;
+
+                break;
+            case "Воскресенье":
+                Header.setText("Понедельник");
+                Current_Day_Num = 1;
+
+                break;
+        }
+        Update_List_via_Database(Week,Current_Day_Num);
+    }
+
     private BottomNavigationView.OnNavigationItemSelectedListener top_menu_listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             TextView Header = findViewById(R.id.day_of_the_week);
-            ListView Main_List = (ListView) findViewById(R.id.List);
 
             switch (menuItem.getItemId()){
                 case R.id.left_arrow_button:
-                    switch (Header.getText().toString()){
-                        case "Понедельник":
-                            Header.setText("Воскресенье");
-                            Current_Day_Num = 7;
-
-                            break;
-                        case "Воскресенье":
-                            Header.setText("Суббота");
-                            Current_Day_Num = 6;
-
-                            break;
-                        case "Суббота":
-                            Header.setText("Пятница");
-                            Current_Day_Num = 5;
-
-                            break;
-                        case "Пятница":
-                            Header.setText("Четверг");
-                            Current_Day_Num = 4;
-
-                            break;
-                        case "Четверг":
-                            Header.setText("Среда");
-                            Current_Day_Num = 3;
-
-                            break;
-                        case "Среда":
-                            Header.setText("Вторник");
-                            Current_Day_Num = 2;
-
-                            break;
-                        case "Вторник":
-                            Header.setText("Понедельник");
-                            Current_Day_Num = 1;
-
-                            break;
-                    }
+                    Day_Change_Right();
                     break;
 
                 case R.id.right_arrow_button:
-                    switch (Header.getText().toString()){
-                        case "Понедельник":
-                            Header.setText("Вторник");
-                            Current_Day_Num = 2;
-
-                            break;
-                        case "Вторник":
-                            Header.setText("Среда");
-                            Current_Day_Num = 3;
-
-                            break;
-                        case "Среда":
-                            Header.setText("Четверг");
-                            Current_Day_Num = 4;
-
-                            break;
-                        case "Четверг":
-                            Header.setText("Пятница");
-                            Current_Day_Num = 5;
-
-                            break;
-                        case "Пятница":
-                            Header.setText("Суббота");
-                            Current_Day_Num = 6;
-
-                            break;
-                        case "Суббота":
-                            Header.setText("Воскресенье");
-                            Current_Day_Num = 7;
-
-                            break;
-                        case "Воскресенье":
-                            Header.setText("Понедельник");
-                            Current_Day_Num = 1;
-
-                            break;
-                    }
+                    Day_Change_Left();
                     break;
             }
-            Update_List_via_Database(Week,Current_Day_Num);
             return true;
         }
     };
