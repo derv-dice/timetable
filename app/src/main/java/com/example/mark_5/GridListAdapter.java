@@ -2,6 +2,8 @@ package com.example.mark_5;
 
 import java.util.ArrayList;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +12,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -55,15 +59,10 @@ public class GridListAdapter extends BaseAdapter {
         Button file = view.findViewById(R.id.file_button);
         file.setVisibility(View.INVISIBLE);
 
-        //ConstraintLayout Item_Layout_Field = view.findViewById(R.id.Item_List_Layout);
+        final Button mark = view.findViewById(R.id.mark_button);
+
         Schedule_Item schedule_item = getItem_List(position);
 
-        /*
-        if (schedule_item.getTime0().equals("0")){
-            file.setVisibility(View.INVISIBLE);
-        }
-
-         */
 
         TextView text_view_time0 = view.findViewById(R.id.textView_time0);
         text_view_time0.setText(schedule_item.getTime0());
@@ -86,16 +85,27 @@ public class GridListAdapter extends BaseAdapter {
         TextView text_view_item_name = view.findViewById(R.id.textView_item_name);
         text_view_item_name.setText(schedule_item.getItem_Name());
 
-/*
+        ConstraintLayout Item_List_Field = view.findViewById(R.id.Item_List_Layout);
+
+
+
+
         final View finalView = view;
         file.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(finalView.getContext(),"1"+"\n"+"2" , Toast.LENGTH_LONG).show();
+                Toast.makeText(finalView.getContext(),"e-mail: "+"\n"+"Номер: " , Toast.LENGTH_LONG).show();
             }
         });
 
- */
+        mark.setOnClickListener(new View.OnClickListener(){
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onClick(View v) {
+                mark.setBackground(ContextCompat.getDrawable(ctx,R.drawable.ic_mainlistrow_v2_checked_mark_btn));
+            }
+        });
+
 
         return view;
     }

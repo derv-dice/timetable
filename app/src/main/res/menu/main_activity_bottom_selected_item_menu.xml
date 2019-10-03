@@ -8,7 +8,7 @@
 
     <item
         android:id="@+id/edit_button"
-        android:icon="@drawable/ic_plus_add"
-        android:title="@string/add" />
+        android:icon="@drawable/ic_edit_btn"
+        android:title="@string/edit" />
 
 </menu>

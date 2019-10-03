@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bot_menu_add_fragment"
+        android:background="@color/Dark_Theme_Gray_Dark"
         android:orientation="vertical">
 
         <EditText
@@ -23,34 +24,40 @@
             android:hint="Начало пары"
             android:inputType="time"
             android:singleLine="false"
-            android:textColor="@color/colorLiteGray"
-            android:textColorHighlight="@color/colorLiteGray"
-            android:textColorLink="@color/colorLiteGray"
-            android:textCursorDrawable="@color/colorLiteGray"
+            android:textColor="@color/Dark_Theme_Font_Light"
+            android:textColorHighlight="@color/Dark_Theme_Font_Light"
+            android:textColorHint="@color/Dark_Theme_Font_Dark"
+            android:textColorLink="@color/Dark_Theme_Font_Light"
+            android:textCursorDrawable="@color/Dark_Theme_Font_Light"
             tools:layout_editor_absoluteY="10dp" />
 
         <EditText
             android:id="@+id/editText5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorLink="@color/colorLiteGray"
-            android:textCursorDrawable="@color/colorLiteGray"
             android:ems="10"
             android:hint="Конец пары"
-            android:textColor="@color/colorLiteGray"
             android:inputType="time"
+            android:textColor="@color/Dark_Theme_Font_Light"
+            android:textColorHighlight="@color/Dark_Theme_Font_Light"
+            android:textColorHint="@color/Dark_Theme_Font_Dark"
+            android:textColorLink="@color/Dark_Theme_Font_Light"
+            android:textCursorDrawable="@color/Dark_Theme_Font_Light"
             tools:layout_editor_absoluteY="67dp" />
 
         <EditText
             android:id="@+id/editText6"
+            style="@style/Widget.AppCompat.AutoCompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textCursorDrawable="@color/colorLiteGray"
             android:ems="10"
             android:hint="Название предмета"
-            android:textColor="@color/colorLiteGray"
-            android:textColorLink="@color/colorLiteGray"
             android:inputType="textPersonName"
+            android:textColor="@color/Dark_Theme_Font_Light"
+            android:textColorHighlight="@color/Dark_Theme_Font_Light"
+            android:textColorHint="@color/Dark_Theme_Font_Dark"
+            android:textColorLink="@color/Dark_Theme_Font_Light"
+            android:textCursorDrawable="@color/Dark_Theme_Font_Light"
             tools:layout_editor_absoluteY="122dp" />
 
         <EditText
@@ -59,10 +66,12 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Имя преподавателя"
-            android:textColor="@color/colorLiteGray"
-            android:textCursorDrawable="@color/colorLiteGray"
-            android:textColorLink="@color/colorLiteGray"
             android:inputType="textPersonName"
+            android:textColor="@color/Dark_Theme_Font_Light"
+            android:textColorHighlight="@color/Dark_Theme_Font_Light"
+            android:textColorHint="@color/Dark_Theme_Font_Dark"
+            android:textColorLink="@color/Dark_Theme_Font_Light"
+            android:textCursorDrawable="@color/Dark_Theme_Font_Light"
             tools:layout_editor_absoluteY="179dp" />
 
         <EditText
@@ -71,10 +80,12 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Тип занятия (лекция, семинар и т.д.)"
-            android:textColor="@color/colorLiteGray"
-            android:textColorLink="@color/colorLiteGray"
-            android:textCursorDrawable="@color/colorLiteGray"
             android:inputType="textPersonName"
+            android:textColor="@color/Dark_Theme_Font_Light"
+            android:textColorHighlight="@color/Dark_Theme_Font_Light"
+            android:textColorHint="@color/Dark_Theme_Font_Dark"
+            android:textColorLink="@color/Dark_Theme_Font_Light"
+            android:textCursorDrawable="@color/Dark_Theme_Font_Light"
             tools:layout_editor_absoluteY="235dp" />
 
         <EditText
@@ -83,22 +94,26 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Номер аудитории"
-            android:textColor="@color/colorLiteGray"
-            android:textColorLink="@color/colorLiteGray"
-            android:textCursorDrawable="@color/colorLiteGray"
             android:inputType="textPersonName"
+            android:textColor="@color/Dark_Theme_Font_Light"
+            android:textColorHighlight="@color/Dark_Theme_Font_Light"
+            android:textColorHint="@color/Dark_Theme_Font_Dark"
+            android:textColorLink="@color/Dark_Theme_Font_Light"
+            android:textCursorDrawable="@color/Dark_Theme_Font_Light"
             tools:layout_editor_absoluteY="291dp" />
 
         <EditText
             android:id="@+id/editText10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorLiteGray"
-            android:textColorLink="@color/colorLiteGray"
-            android:textCursorDrawable="@color/colorLiteGray"
             android:ems="10"
             android:hint="Номер корпуса"
             android:inputType="textPersonName"
+            android:textColor="@color/Dark_Theme_Font_Light"
+            android:textColorHighlight="@color/Dark_Theme_Font_Light"
+            android:textColorHint="@color/Dark_Theme_Font_Dark"
+            android:textColorLink="@color/Dark_Theme_Font_Light"
+            android:textCursorDrawable="@color/Dark_Theme_Font_Light"
             tools:layout_editor_absoluteY="347dp" />
     </LinearLayout>
 
@@ -108,12 +123,14 @@
         android:layout_height="42dp"
         android:layout_alignParentBottom="true"
         android:background="@color/colorDarkGray"
-        app:itemIconTint="@color/colorLiteGray"
+        app:itemBackground="@color/Dark_Theme_Gray"
+        app:itemIconTint="@color/Dark_Theme_Font_Light"
         app:itemTextColor="@color/colorLiteGray"
         app:labelVisibilityMode="unlabeled"
+        android:layout_gravity="bottom"
         app:menu="@menu/add_fragment_bottom_menu"
-        tools:layout_editor_absoluteY="743dp" >
+        tools:layout_editor_absoluteY="743dp">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-</RelativeLayout>
+</FrameLayout>
