@@ -3,6 +3,7 @@ package com.example.mark_5;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.RemoteInput;
+import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.app.LauncherActivity;
@@ -102,10 +103,17 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast.makeText(MainActivity.this, String.valueOf(position) , Toast.LENGTH_LONG).show();
 
+
+                edit_mode_menu.setEnabled(true);
+                edit_mode_menu.setVisibility(View.VISIBLE);
+
                 return true;
             }
         });
+
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -255,8 +263,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.settings_button:
-                    edit_mode_menu.setEnabled(true);
-                    edit_mode_menu.setVisibility(View.VISIBLE);
+
                     break;
                 case R.id.menu_button:
 

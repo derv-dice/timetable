@@ -1,6 +1,8 @@
 package com.example.mark_5;
 
 import java.util.ArrayList;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -20,9 +22,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class GridListAdapter extends BaseAdapter {
-    Context ctx;
-    LayoutInflater lInflater;
-    ArrayList<Schedule_Item> objects;
+    private Context ctx;
+    private LayoutInflater lInflater;
+    private ArrayList<Schedule_Item> objects;
+    ConstraintLayout Item_Layout;
+    View v;
 
     GridListAdapter(Context context, ArrayList<Schedule_Item> items) {
         ctx = context;
@@ -61,7 +65,9 @@ public class GridListAdapter extends BaseAdapter {
 
         final Button mark = view.findViewById(R.id.mark_button);
 
-        Schedule_Item schedule_item = getItem_List(position);
+        final ConstraintLayout Item_List_Layout = view.findViewById(R.id.Item_List_Layout);
+
+        final Schedule_Item schedule_item = getItem_List(position);
 
 
         TextView text_view_time0 = view.findViewById(R.id.textView_time0);
@@ -85,10 +91,6 @@ public class GridListAdapter extends BaseAdapter {
         TextView text_view_item_name = view.findViewById(R.id.textView_item_name);
         text_view_item_name.setText(schedule_item.getItem_Name());
 
-        ConstraintLayout Item_List_Field = view.findViewById(R.id.Item_List_Layout);
-
-
-
 
         final View finalView = view;
         file.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +108,15 @@ public class GridListAdapter extends BaseAdapter {
             }
         });
 
+        Item_List_Layout.setOnLongClickListener(new View.OnLongClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public boolean onLongClick(View v) {
+                //Item_List_Layout.setBackground(ContextCompat.getDrawable(ctx, R.drawable.ic_mainlistrow_v2_background_picture_rounded_selected));
+                // Пока что не знаю почему и зачем эта часть, но без нее не работает
+                return false;
+            }
+        });
 
         return view;
     }
