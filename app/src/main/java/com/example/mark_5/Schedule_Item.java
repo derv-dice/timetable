@@ -20,7 +20,7 @@ public class Schedule_Item {
     }
 
 
-    // Дальше идут методы get() / set()...
+    // Дальше идут методы get()
 
 
     public String getItem_Name() {
@@ -51,32 +51,4 @@ public class Schedule_Item {
         return Item_Building;
     }
 
-
-    public void setItem_Name(String item_Name) {
-        Item_Name = item_Name;
-    }
-
-    public void setTeacher_Name(String teacher_Name) {
-        Teacher_Name = teacher_Name;
-    }
-
-    public void setTime0(String time0) {
-        this.time0 = time0;
-    }
-
-    public void setItem_Mode(String item_Mode) {
-        Item_Mode = item_Mode;
-    }
-
-    public void setTime1(String time1) {
-        this.time1 = time1;
-    }
-
-    public void setItem_Auditorium(String item_Auditorium) {
-        Item_Auditorium = item_Auditorium;
-    }
-
-    public void setItem_Building(String item_Building) {
-        Item_Building = item_Building;
-    }
 }
