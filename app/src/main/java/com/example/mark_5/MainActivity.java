@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.app.LauncherActivity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private GridListAdapter Main_adapter;
     private ListView Main_ListView;
+    private ItemsDataBase DB;
     private int Current_Day_Num = 1;
     private int Week = 1;
     private Button Week_Btn;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int Selected_Item_Position = 0;
     private BottomNavigationView edit_mode_menu;
+    private String items_DB = "save8.db";
 
 
     @Override
@@ -58,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         {
+            DB.create_items_db(items_DB);
+            /*
             SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("save_7.db", MODE_PRIVATE, null);
             db.execSQL("CREATE TABLE IF NOT EXISTS Monday_1 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
             db.execSQL("CREATE TABLE IF NOT EXISTS Tuesday_1 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
@@ -74,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
             db.execSQL("CREATE TABLE IF NOT EXISTS Saturday_2 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
             db.execSQL("CREATE TABLE IF NOT EXISTS Sunday_2 (time0 TEXT, time1 TEXT, item_name TEXT, teacher_name TEXT, item_mode TEXT, item_auditorium TEXT, item_building TEXT)");
             db.close();
+
+             */
         }// Создание базы данных, если ее нет
 
         BottomNavigationView Top_Menu = findViewById(R.id.top_navigation_menu); // Верхние и нижние MenuBar
@@ -100,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Toast.makeText(MainActivity.this, String.valueOf(position) , Toast.LENGTH_LONG).show();
-
 
                 edit_mode_menu.setEnabled(true);
                 edit_mode_menu.setVisibility(View.VISIBLE);
@@ -271,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private void Day_Change_Right(){
+    public void Day_Change_Right(){
         TextView Header = findViewById(R.id.day_of_the_week);
         switch (Header.getText().toString()){
             case "Понедельник":
@@ -313,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
         Update_List_via_Database(Week,Current_Day_Num);
     }
 
-    private void Day_Change_Left(){
+    public void Day_Change_Left(){
         TextView Header = findViewById(R.id.day_of_the_week);
         switch (Header.getText().toString()){
             case "Понедельник":
