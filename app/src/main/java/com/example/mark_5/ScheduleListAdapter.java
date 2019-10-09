@@ -1,13 +1,20 @@
 package com.example.mark_5;
 
 import android.content.Context;
+import android.os.Build;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -43,9 +50,10 @@ public class ScheduleListAdapter extends BaseAdapter {
     }
 
     // пункт списка
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
 
         if(convertView == null){
             convertView = inflater.inflate(this.layout, parent, false);
@@ -66,6 +74,45 @@ public class ScheduleListAdapter extends BaseAdapter {
         viewHolder.Item_Auditorium.setText(Item.getItem_Auditorium());
         viewHolder.Item_Building.setText(Item.getItem_Building());
 
+        final View finalView = convertView;
+
+        if ((Item.getTeacher_Mail().equals("")) && (Item.getTeacher_Phone().equals(""))){
+            viewHolder.File_Button.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            viewHolder.File_Button.setVisibility(View.VISIBLE);
+        }
+
+        if (Item.getFavourite().equals("1")){
+            viewHolder.Mark_Button.setBackground(ContextCompat.getDrawable(finalView.getContext(), R.drawable.ic_mainlistrow_v2_checked_mark_btn));
+        }
+        else {
+            viewHolder.Mark_Button.setBackground(ContextCompat.getDrawable(finalView.getContext(), R.drawable.ic_mainlistrow_v2_mark_btn));
+        }
+
+        viewHolder.File_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(finalView.getContext(), String.valueOf(position) , Toast.LENGTH_LONG).show();
+            }
+        });
+
+        viewHolder.Mark_Button.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                // Запрос в БД на добавление в избранное
+
+                // Временная визуальная хрень
+                viewHolder.Mark_Button.setBackground(ContextCompat.getDrawable(finalView.getContext(), R.drawable.ic_mainlistrow_v2_checked_mark_btn));
+                //В ременная визуальная хрень
+
+                return false;
+            }
+        });
+
+
         return convertView;
     }
 
@@ -73,14 +120,19 @@ public class ScheduleListAdapter extends BaseAdapter {
 
     private class ViewHolder {
         final TextView Time0, Time1, Item_Name, Teacher_Name, Item_Mode, Item_Auditorium, Item_Building;
+        final Button File_Button, Mark_Button;
+        final ConstraintLayout List_Item_Layout;
         ViewHolder(View view){
-            Time0 = (TextView) view.findViewById(R.id.textView_time0);
-            Time1 = (TextView) view.findViewById(R.id.textView_time1);
-            Item_Name = (TextView) view.findViewById(R.id.textView_item_name);
-            Teacher_Name = (TextView) view.findViewById(R.id.textView_item_teacher);
-            Item_Mode = (TextView) view.findViewById(R.id.textView_item_mode);
-            Item_Auditorium = (TextView) view.findViewById(R.id.textView_item_auditorium);
-            Item_Building = (TextView) view.findViewById(R.id.textView_item_building);
+            Time0 = view.findViewById(R.id.textView_time0);
+            Time1 = view.findViewById(R.id.textView_time1);
+            Item_Name = view.findViewById(R.id.textView_item_name);
+            Teacher_Name = view.findViewById(R.id.textView_item_teacher);
+            Item_Mode = view.findViewById(R.id.textView_item_mode);
+            Item_Auditorium = view.findViewById(R.id.textView_item_auditorium);
+            Item_Building = view.findViewById(R.id.textView_item_building);
+            File_Button = view.findViewById(R.id.file_button);
+            Mark_Button = view.findViewById(R.id.mark_button);
+            List_Item_Layout = view.findViewById(R.id.Item_List_Layout);
         }
     }
 

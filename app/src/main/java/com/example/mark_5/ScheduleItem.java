@@ -2,6 +2,7 @@ package com.example.mark_5;
 
 public class ScheduleItem {
     private String Object_Id;               // Уникальный идентификатор элемента
+
     private String Time0;                   // Время начала пары
     private String Time1;                   // Время окончания пары
     private String Item_Name;               // Название предмета
@@ -14,16 +15,17 @@ public class ScheduleItem {
     private String Teacher_Mail;            // Электронная почта преподавателя
     private String Favourite;               // Содержится ли предмет в избранном
 
-    ScheduleItem(String _Id, String _time0, String _time1, String _Item_Name,
-                 String _Teacher_name, String _Item_Mode, String _Item_Auditorium,
+    ScheduleItem(String _Object_ID, String _Time0, String _Time1, String _Item_Name,
+                 String _Teacher_Name, String _Item_Mode, String _Item_Auditorium,
                  String _Item_Building, String _Teacher_Phone, String _Teacher_Mail,
                  String _Favourite){
 
-        Object_Id = _Id;
-        Time0 = _time0;
-        Time1 = _time1;
+        Object_Id = _Object_ID;
+
+        Time0 = _Time0;
+        Time1 = _Time1;
         Item_Name = _Item_Name;
-        Teacher_Name = _Teacher_name;
+        Teacher_Name = _Teacher_Name;
         Item_Mode = _Item_Mode;
         Item_Auditorium = _Item_Auditorium;
         Item_Building = _Item_Building;
@@ -43,9 +45,11 @@ public class ScheduleItem {
     }
 
     // Блок методов get()
-    public String getObject_Id () {
+
+    public String getObject_Id() {
         return Object_Id;
     }
+
     public String getItem_Name () {
         return Item_Name;
     }
