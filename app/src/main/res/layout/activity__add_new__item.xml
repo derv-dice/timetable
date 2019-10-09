@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,7 +14,8 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/bot_menu_add_fragment"
         android:background="@color/Dark_Theme_Gray_Dark"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
 
         <EditText
             android:id="@+id/editText4"
@@ -29,7 +30,10 @@
             android:textColorHint="@color/Dark_Theme_Font_Dark"
             android:textColorLink="@color/Dark_Theme_Font_Light"
             android:textCursorDrawable="@color/Dark_Theme_Font_Light"
-            tools:layout_editor_absoluteY="10dp" />
+            tools:layout_conversion_absoluteHeight="45dp"
+            tools:layout_conversion_absoluteWidth="393dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
 
         <EditText
             android:id="@+id/editText5"
@@ -43,7 +47,10 @@
             android:textColorHint="@color/Dark_Theme_Font_Dark"
             android:textColorLink="@color/Dark_Theme_Font_Light"
             android:textCursorDrawable="@color/Dark_Theme_Font_Light"
-            tools:layout_editor_absoluteY="67dp" />
+            tools:layout_conversion_absoluteHeight="45dp"
+            tools:layout_conversion_absoluteWidth="393dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="45dp" />
 
         <EditText
             android:id="@+id/editText6"
@@ -58,7 +65,10 @@
             android:textColorHint="@color/Dark_Theme_Font_Dark"
             android:textColorLink="@color/Dark_Theme_Font_Light"
             android:textCursorDrawable="@color/Dark_Theme_Font_Light"
-            tools:layout_editor_absoluteY="122dp" />
+            tools:layout_conversion_absoluteHeight="45dp"
+            tools:layout_conversion_absoluteWidth="393dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="91dp" />
 
         <EditText
             android:id="@+id/editText7"
@@ -72,7 +82,10 @@
             android:textColorHint="@color/Dark_Theme_Font_Dark"
             android:textColorLink="@color/Dark_Theme_Font_Light"
             android:textCursorDrawable="@color/Dark_Theme_Font_Light"
-            tools:layout_editor_absoluteY="179dp" />
+            tools:layout_conversion_absoluteHeight="45dp"
+            tools:layout_conversion_absoluteWidth="393dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="136dp" />
 
         <EditText
             android:id="@+id/editText8"
@@ -86,7 +99,10 @@
             android:textColorHint="@color/Dark_Theme_Font_Dark"
             android:textColorLink="@color/Dark_Theme_Font_Light"
             android:textCursorDrawable="@color/Dark_Theme_Font_Light"
-            tools:layout_editor_absoluteY="235dp" />
+            tools:layout_conversion_absoluteHeight="45dp"
+            tools:layout_conversion_absoluteWidth="393dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="182dp" />
 
         <EditText
             android:id="@+id/editText9"
@@ -100,7 +116,10 @@
             android:textColorHint="@color/Dark_Theme_Font_Dark"
             android:textColorLink="@color/Dark_Theme_Font_Light"
             android:textCursorDrawable="@color/Dark_Theme_Font_Light"
-            tools:layout_editor_absoluteY="291dp" />
+            tools:layout_conversion_absoluteHeight="45dp"
+            tools:layout_conversion_absoluteWidth="393dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="227dp" />
 
         <EditText
             android:id="@+id/editText10"
@@ -114,7 +133,45 @@
             android:textColorHint="@color/Dark_Theme_Font_Dark"
             android:textColorLink="@color/Dark_Theme_Font_Light"
             android:textCursorDrawable="@color/Dark_Theme_Font_Light"
-            tools:layout_editor_absoluteY="347dp" />
+            tools:layout_conversion_absoluteHeight="45dp"
+            tools:layout_conversion_absoluteWidth="393dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="273dp" />
+
+        <EditText
+            android:id="@+id/editText12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Номер телефона преподавателя"
+            android:inputType="phone"
+            android:textColor="@color/Dark_Theme_Font_Light"
+            android:textColorHighlight="@color/Dark_Theme_Font_Light"
+            android:textColorHint="@color/Dark_Theme_Font_Dark"
+            android:textColorLink="@color/Dark_Theme_Font_Light"
+            android:textCursorDrawable="@color/Dark_Theme_Font_Light"
+            tools:layout_conversion_absoluteHeight="45dp"
+            tools:layout_conversion_absoluteWidth="393dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="273dp" />
+
+        <EditText
+            android:id="@+id/editText11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="E-mail преподавателя"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/Dark_Theme_Font_Light"
+            android:textColorHighlight="@color/Dark_Theme_Font_Light"
+            android:textColorHint="@color/Dark_Theme_Font_Dark"
+            android:textColorLink="@color/Dark_Theme_Font_Light"
+            android:textCursorDrawable="@color/Dark_Theme_Font_Light"
+            tools:layout_conversion_absoluteHeight="45dp"
+            tools:layout_conversion_absoluteWidth="393dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="273dp" />
+
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -133,4 +190,4 @@
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-</FrameLayout>
+</RelativeLayout>

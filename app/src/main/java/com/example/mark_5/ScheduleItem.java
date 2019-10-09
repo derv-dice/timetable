@@ -36,12 +36,7 @@ public class ScheduleItem {
     }
 
     public boolean Is_Favourite(){
-        if (Favourite.equals("0")){
-            return false;
-        }
-        else{
-            return true;
-        }
+        return !Favourite.equals("0");
     }
 
     // Блок методов get()
