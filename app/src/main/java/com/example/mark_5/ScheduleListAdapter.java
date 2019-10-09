@@ -2,20 +2,17 @@ package com.example.mark_5;
 
 import android.content.Context;
 import android.os.Build;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -23,9 +20,10 @@ public class ScheduleListAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private int layout;
     private ArrayList<ScheduleItem> objects;
+    private String items_DB = "save8.db";
 
+    //ScheduleListAdapter(Context context, int resource, ArrayList<ScheduleItem> items) {
     ScheduleListAdapter(Context context, int resource, ArrayList<ScheduleItem> items) {
-        //super(context, resource, items);
         this.layout = resource;
         this.objects = items;
         this.inflater = LayoutInflater.from(context);
@@ -64,7 +62,7 @@ public class ScheduleListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        ScheduleItem Item = objects.get(position);
+        final ScheduleItem Item = objects.get(position);
 
         viewHolder.Time0.setText(Item.getTime0());
         viewHolder.Time1.setText(Item.getTime1());
@@ -94,20 +92,25 @@ public class ScheduleListAdapter extends BaseAdapter {
         viewHolder.File_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(finalView.getContext(), String.valueOf(position) , Toast.LENGTH_LONG).show();
+                Toast.makeText(finalView.getContext(), "Номер телефона: " + Item.getTeacher_Phone() + '\n' +"Почта: " + Item.getTeacher_Mail(), Toast.LENGTH_LONG).show();
             }
         });
 
-        viewHolder.Mark_Button.setOnLongClickListener(new View.OnLongClickListener() {
+        viewHolder.Mark_Button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
+            public void onClick(View v) {
 
                 // Запрос в БД на добавление в избранное
 
                 // Временная визуальная хрень
                 viewHolder.Mark_Button.setBackground(ContextCompat.getDrawable(finalView.getContext(), R.drawable.ic_mainlistrow_v2_checked_mark_btn));
                 //В ременная визуальная хрень
+            }
+        });
 
+        viewHolder.List_Item_Layout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
                 return false;
             }
         });
