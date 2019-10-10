@@ -13,19 +13,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class Activity_Edit_Item extends AppCompatActivity {
+public class EditItemActivity extends AppCompatActivity {
 
     public TextView t1, t2, t3, t4,t5, t6, t7, t8, t9;
     public String t1_str, t2_str, t3_str, t4_str, t5_str, t6_str, t7_str, t8_str, t9_str;
     private int Current_Day_Num = 0;
     private int Current_Week = 0;
-    private ItemsDataBase DB;
     private String items_DB = "save8.db";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity__add_new__item);
+        setContentView(R.layout.activity_edit_item);
 
         Bundle Data_From_Last_Activity = getIntent().getExtras();;
         Current_Day_Num = Data_From_Last_Activity.getInt("Day");
@@ -185,7 +184,7 @@ public class Activity_Edit_Item extends AppCompatActivity {
                     break;
             }
 
-            Intent intent = new Intent(Activity_Edit_Item.this, MainActivity.class);
+            Intent intent = new Intent(EditItemActivity.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
 
