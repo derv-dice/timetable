@@ -22,28 +22,24 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private GridListAdapter Main_adapter;
     private ListView Main_ListView;
     private int Current_Day_Num = 1;
     private int Week = 1;
     private Button Week_Btn;
-    public ArrayList<Schedule_Item> DB_Items_list;
-
 
     private int Selected_Item_Position = 0;
     private BottomNavigationView edit_mode_menu;
 
-    private ItemsDataBase DB;
     private String items_DB = "save8.db";
     private ArrayList<ScheduleItem> Main_Array_List;
     private ScheduleListAdapter Main_Array_List_Adapter;
+    private String current_row_id = "0";
 
     @Override
     protected void onResume()
     {
         super.onResume();
         update_Main_ListView(Week,Current_Day_Num);
-        //Update_List_via_Database(Week,Current_Day_Num);
     }
 
     private void first_create_table(String db_name, String table_name){
@@ -82,10 +78,9 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView Bot_Menu = findViewById(R.id.bottom_navigation_menu);
         Bot_Menu.setOnNavigationItemSelectedListener(bot_menu_listener);
 
-        BottomNavigationView Edit_Menu = findViewById(R.id.edit_mode_menu);
-        Bot_Menu.setOnNavigationItemSelectedListener(edit_menu_listener);
-
         edit_mode_menu = findViewById(R.id.edit_mode_menu);
+        edit_mode_menu.setOnNavigationItemSelectedListener(edit_menu_listener);
+
         edit_mode_menu.setVisibility(View.INVISIBLE);
         edit_mode_menu.setEnabled(false);
 
@@ -103,20 +98,17 @@ public class MainActivity extends AppCompatActivity {
         Main_ListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(MainActivity.this, String.valueOf(position) , Toast.LENGTH_LONG).show();
-
-                Selected_Item_Position = position;
+                ScheduleItem Item = Main_Array_List.get(position);
+                current_row_id = Item.getObject_Id();
 
                 edit_mode_menu.setEnabled(true);
                 edit_mode_menu.setVisibility(View.VISIBLE);
-
+                //Toast.makeText(MainActivity.this, String.valueOf(position) , Toast.LENGTH_LONG).show();
                 return true;
             }
         });
 
     }
-
 
 
     @Override
@@ -154,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
             Week_Btn.setText(R.string.Week_1);
         }
         update_Main_ListView(Week, Current_Day_Num);
-
     }
 
     public void update_Main_ListView(Integer Week, Integer Day){
@@ -262,9 +253,66 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
                 case R.id.delete_button:
-
+                    SQLiteDatabase db = getApplicationContext().openOrCreateDatabase(items_DB, MODE_PRIVATE, null);
+                    switch (Week){  // В зависимости от текущей недели и дня недели выбирается нужная таблица из базы данных save_n.db
+                        case 1:
+                            switch (Current_Day_Num){
+                                case 1:
+                                    db.delete("Monday_1", "Object_Id = ?", new String[]{current_row_id} );
+                                    //db.execSQL("DELETE FROM " + "Monday_1" + " WHERE Object_Id = " + current_row_id);
+                                    db.close();
+                                    //cursor = db.rawQuery("SELECT * FROM Monday_1;",null);
+                                    break;
+                                case 2:
+                                    //cursor = db.rawQuery("SELECT * FROM Tuesday_1;", null);
+                                    break;
+                                case 3:
+                                    //cursor = db.rawQuery("SELECT * FROM Wednesday_1;", null);
+                                    break;
+                                case 4:
+                                    //cursor = db.rawQuery("SELECT * FROM Thursday_1;", null);
+                                    break;
+                                case 5:
+                                    //cursor = db.rawQuery("SELECT * FROM Friday_1;", null);
+                                    break;
+                                case 6:
+                                    //cursor = db.rawQuery("SELECT * FROM Saturday_1;", null);
+                                    break;
+                                case 7:
+                                    //cursor = db.rawQuery("SELECT * FROM Sunday_1;", null);
+                                    break;
+                            }
+                            break;
+                        case 2:
+                            switch (Current_Day_Num){
+                                case 1:
+                                    //cursor = db.rawQuery("SELECT * FROM Monday_2;", null);
+                                    break;
+                                case 2:
+                                    //cursor = db.rawQuery("SELECT * FROM Tuesday_2;", null);
+                                    break;
+                                case 3:
+                                    //cursor = db.rawQuery("SELECT * FROM Wednesday_2;", null);
+                                    break;
+                                case 4:
+                                    //cursor = db.rawQuery("SELECT * FROM Thursday_2;", null);
+                                    break;
+                                case 5:
+                                    //cursor = db.rawQuery("SELECT * FROM Friday_2;", null);
+                                    break;
+                                case 6:
+                                    //cursor = db.rawQuery("SELECT * FROM Saturday_2;", null);
+                                    break;
+                                case 7:
+                                    //cursor = db.rawQuery("SELECT * FROM Sunday_2;", null);
+                                    break;
+                            }
+                            break;
+                    }
                     break;
             }
+            Toast.makeText(MainActivity.this, "Удалено" , Toast.LENGTH_LONG).show();
+            update_Main_ListView(Week, Current_Day_Num);
             return true;
         }
     };
@@ -276,7 +324,7 @@ public class MainActivity extends AppCompatActivity {
 
             switch (menuItem.getItemId()){
                 case  R.id.add_button: // Добавление строки в список предметов
-                    Intent intent = new Intent(MainActivity.this, Activity_Add_new_Item.class);
+                    Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
 
                     intent.putExtra("Day", Current_Day_Num);
                     intent.putExtra("Week", Week);
@@ -377,7 +425,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         update_Main_ListView(Week,Current_Day_Num);
-        //Update_List_via_Database(Week,Current_Day_Num);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener top_menu_listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
