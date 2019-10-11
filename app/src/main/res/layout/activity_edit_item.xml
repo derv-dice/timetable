@@ -185,7 +185,7 @@
         app:itemTextColor="@color/colorLiteGray"
         app:labelVisibilityMode="unlabeled"
         android:layout_gravity="bottom"
-        app:menu="@menu/add_fragment_bottom_menu"
+        app:menu="@menu/edit_item_bottom_menu"
         tools:layout_editor_absoluteY="743dp">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>

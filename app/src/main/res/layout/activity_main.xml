@@ -19,6 +19,31 @@
         android:textColor="@color/Dark_Theme_Font_Dark"
         android:textSize="28sp" />
 
+    <ListView
+        android:id="@+id/List"
+        style="@android:style/Widget.Holo.ExpandableListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation_menu"
+        android:layout_below="@+id/Week_Stage"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:choiceMode="none"
+        android:clickable="true"
+        android:divider="@color/Dark_Theme_Gray_Dark"
+        android:dividerHeight="2dp"
+        android:focusable="true"
+        android:longClickable="true">
+
+    </ListView>
+
+    <Button
+        android:id="@+id/patch"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/empty_background" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_menu"
         android:layout_width="match_parent"
@@ -60,24 +85,6 @@
             android:textSize="28sp" />
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    <ListView
-        android:id="@+id/List"
-        style="@android:style/Widget.Holo.ExpandableListView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_navigation_menu"
-        android:layout_below="@+id/Week_Stage"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
-        android:choiceMode="none"
-        android:clickable="true"
-        android:divider="@color/Dark_Theme_Gray_Dark"
-        android:dividerHeight="2dp"
-        android:focusable="true"
-        android:longClickable="true">
-
-    </ListView>
-
     <Button
         android:id="@+id/Week_Stage"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
@@ -100,6 +107,8 @@
         app:itemIconTint="@color/colorLiteGray"
         app:itemTextColor="@color/colorLiteGray"
         app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/main_activity_bottom_selected_item_menu" />
+        app:menu="@menu/main_activity_bottom_selected_item_menu" >
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </RelativeLayout>

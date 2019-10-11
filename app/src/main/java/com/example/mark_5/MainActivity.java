@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,12 +36,16 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ScheduleItem> Main_Array_List;
     private ScheduleListAdapter Main_Array_List_Adapter;
     private String current_row_id = "0";
+    private Button patch;
 
     @Override
     protected void onResume()
     {
         super.onResume();
         update_Main_ListView(Week,Current_Day_Num);
+        edit_mode_menu.setEnabled(false);
+        edit_mode_menu.setVisibility(View.INVISIBLE);
+        patch.setVisibility(View.INVISIBLE);
     }
 
     private void first_create_table(String db_name, String table_name){
@@ -56,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        patch = findViewById(R.id.patch);
+        patch.setVisibility(View.INVISIBLE);
 
         first_create_table(items_DB, "Monday_1");
         first_create_table(items_DB, "Tuesday_1");
@@ -96,43 +104,34 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Main_ListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Main_ListView.setSelection(position);
+                Main_ListView.setSelected(true);
+
                 ScheduleItem Item = Main_Array_List.get(position);
                 current_row_id = Item.getObject_Id();
 
                 edit_mode_menu.setEnabled(true);
                 edit_mode_menu.setVisibility(View.VISIBLE);
-                //Toast.makeText(MainActivity.this, String.valueOf(position) , Toast.LENGTH_LONG).show();
+                patch.setVisibility(View.VISIBLE);
                 return true;
             }
         });
-
     }
-
 
     @Override
     public void onBackPressed() {
         if (edit_mode_menu.isEnabled()){
+            patch.setVisibility(View.INVISIBLE);
             edit_mode_menu.setEnabled(false);
             edit_mode_menu.setVisibility(View.INVISIBLE);
+            update_Main_ListView(Week, Current_Day_Num);
         }
         else{
             finish();
         }
-    }
-
-    private void Week_Change_Swipe(){
-        Week_Btn = findViewById(R.id.Week_Stage);
-        if (Week == 1){
-            Week = 2;
-            Week_Btn.setText(R.string.Week_2);
-        }
-        else{
-            Week = 1;
-            Week_Btn.setText(R.string.Week_1);
-        }
-        update_Main_ListView(Week, Current_Day_Num);
     }
 
     public void Change_Week_Stage(View view){
@@ -250,7 +249,14 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             switch (menuItem.getItemId()){
                 case R.id.edit_button:
+                    Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
 
+                    intent.putExtra("Day", Current_Day_Num);
+                    intent.putExtra("Week", Week);
+                    intent.putExtra("Row_ID", current_row_id);
+
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
                     break;
                 case R.id.delete_button:
                     SQLiteDatabase db = getApplicationContext().openOrCreateDatabase(items_DB, MODE_PRIVATE, null);
@@ -259,60 +265,75 @@ public class MainActivity extends AppCompatActivity {
                             switch (Current_Day_Num){
                                 case 1:
                                     db.delete("Monday_1", "Object_Id = ?", new String[]{current_row_id} );
-                                    //db.execSQL("DELETE FROM " + "Monday_1" + " WHERE Object_Id = " + current_row_id);
                                     db.close();
-                                    //cursor = db.rawQuery("SELECT * FROM Monday_1;",null);
                                     break;
                                 case 2:
-                                    //cursor = db.rawQuery("SELECT * FROM Tuesday_1;", null);
+                                    db.delete("Tuesday_1", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.close();
                                     break;
                                 case 3:
-                                    //cursor = db.rawQuery("SELECT * FROM Wednesday_1;", null);
+                                    db.delete("Wednesday_1", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.close();
                                     break;
                                 case 4:
-                                    //cursor = db.rawQuery("SELECT * FROM Thursday_1;", null);
+                                    db.delete("Thursday_1", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.close();
                                     break;
                                 case 5:
-                                    //cursor = db.rawQuery("SELECT * FROM Friday_1;", null);
+                                    db.delete("Friday_1", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.close();
                                     break;
                                 case 6:
-                                    //cursor = db.rawQuery("SELECT * FROM Saturday_1;", null);
+                                    db.delete("Saturday_1", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.close();
                                     break;
                                 case 7:
-                                    //cursor = db.rawQuery("SELECT * FROM Sunday_1;", null);
+                                    db.delete("Sunday_1", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.close();
                                     break;
                             }
                             break;
                         case 2:
                             switch (Current_Day_Num){
                                 case 1:
-                                    //cursor = db.rawQuery("SELECT * FROM Monday_2;", null);
+                                    db.delete("Monday_2", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.close();
                                     break;
                                 case 2:
-                                    //cursor = db.rawQuery("SELECT * FROM Tuesday_2;", null);
+                                    db.delete("Tuesday_2", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.close();
                                     break;
                                 case 3:
-                                    //cursor = db.rawQuery("SELECT * FROM Wednesday_2;", null);
+                                    db.delete("Wednesday_2", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.close();
                                     break;
                                 case 4:
-                                    //cursor = db.rawQuery("SELECT * FROM Thursday_2;", null);
+                                    db.delete("Thursday_2", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.close();
                                     break;
                                 case 5:
-                                    //cursor = db.rawQuery("SELECT * FROM Friday_2;", null);
+                                    db.delete("Friday_2", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.close();
                                     break;
                                 case 6:
-                                    //cursor = db.rawQuery("SELECT * FROM Saturday_2;", null);
+                                    db.delete("Saturday_2", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.close();
                                     break;
                                 case 7:
-                                    //cursor = db.rawQuery("SELECT * FROM Sunday_2;", null);
+                                    db.delete("Sunday_2", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.close();
                                     break;
                             }
                             break;
                     }
+                    Toast.makeText(MainActivity.this, "Предмет удален" , Toast.LENGTH_LONG).show();
+                    update_Main_ListView(Week, Current_Day_Num);
+                    edit_mode_menu.setEnabled(false);
+                    edit_mode_menu.setVisibility(View.INVISIBLE);
+                    patch.setVisibility(View.INVISIBLE);
                     break;
             }
-            Toast.makeText(MainActivity.this, "Удалено" , Toast.LENGTH_LONG).show();
-            update_Main_ListView(Week, Current_Day_Num);
+
             return true;
         }
     };
@@ -321,9 +342,14 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener bot_menu_listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            update_Main_ListView(Week, Current_Day_Num);
+            edit_mode_menu.setEnabled(false);
+            edit_mode_menu.setVisibility(View.INVISIBLE);
+            patch.setVisibility(View.INVISIBLE);
 
             switch (menuItem.getItemId()){
                 case  R.id.add_button: // Добавление строки в список предметов
+
                     Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
 
                     intent.putExtra("Day", Current_Day_Num);
