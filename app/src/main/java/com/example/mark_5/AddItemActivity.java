@@ -2,7 +2,6 @@ package com.example.mark_5;
 
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,24 +13,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class EditItemActivity extends AppCompatActivity {
+public class AddItemActivity extends AppCompatActivity {
 
     public TextView t1, t2, t3, t4,t5, t6, t7, t8, t9;
     public String t1_str, t2_str, t3_str, t4_str, t5_str, t6_str, t7_str, t8_str, t9_str;
     private int Current_Day_Num = 0;
     private int Current_Week = 0;
-    private String Current_Row_ID = "0";
     private String items_DB = "save8.db";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_item);
+        setContentView(R.layout.activity_add_item);
 
         Bundle Data_From_Last_Activity = getIntent().getExtras();;
         Current_Day_Num = Data_From_Last_Activity.getInt("Day");
         Current_Week = Data_From_Last_Activity.getInt("Week");
-        Current_Row_ID = Data_From_Last_Activity.getString("Row_ID");
 
         t1 = findViewById(R.id.editText4);
         t2 = findViewById(R.id.editText5);
@@ -43,84 +40,9 @@ public class EditItemActivity extends AppCompatActivity {
         t8 = findViewById(R.id.editText12);
         t9 = findViewById(R.id.editText11);
 
-        Cursor cursor = null;
-        SQLiteDatabase db = getApplicationContext().openOrCreateDatabase(items_DB, MODE_PRIVATE, null);
-
-        switch (Current_Week){  // В зависимости от текущей недели и дня недели выбирается нужная таблица из базы данных save_n.db
-            case 1:
-                switch (Current_Day_Num){
-                    case 1:
-                        cursor = db.rawQuery("SELECT * FROM Monday_1 WHERE Object_Id = " + Current_Row_ID + " ;",null);
-                        break;
-                    case 2:
-                        cursor = db.rawQuery("SELECT * FROM Tuesday_1 WHERE Object_Id = " + Current_Row_ID + " ;",null);
-                        break;
-                    case 3:
-                        cursor = db.rawQuery("SELECT * FROM Wednesday_1 WHERE Object_Id = " + Current_Row_ID + " ;",null);
-                        break;
-                    case 4:
-                        cursor = db.rawQuery("SELECT * FROM Thursday_1 WHERE Object_Id = " + Current_Row_ID + " ;",null);
-                        break;
-                    case 5:
-                        cursor = db.rawQuery("SELECT * FROM Friday_1 WHERE Object_Id = " + Current_Row_ID + " ;",null);
-                        break;
-                    case 6:
-                        cursor = db.rawQuery("SELECT * FROM Saturday_1 WHERE Object_Id = " + Current_Row_ID + " ;",null);
-                        break;
-                    case 7:
-                        cursor = db.rawQuery("SELECT * FROM Sunday_1 WHERE Object_Id = " + Current_Row_ID + " ;",null);
-                        break;
-                }
-                break;
-            case 2:
-                switch (Current_Day_Num){
-                    case 1:
-                        cursor = db.rawQuery("SELECT * FROM Monday_2 WHERE Object_Id = " + Current_Row_ID + " ;",null);
-                        break;
-                    case 2:
-                        cursor = db.rawQuery("SELECT * FROM Tuesday_2 WHERE Object_Id = " + Current_Row_ID + " ;",null);
-                        break;
-                    case 3:
-                        cursor = db.rawQuery("SELECT * FROM Wednesday_2 WHERE Object_Id = " + Current_Row_ID + " ;",null);
-                        break;
-                    case 4:
-                        cursor = db.rawQuery("SELECT * FROM Thursday_2 WHERE Object_Id = " + Current_Row_ID + " ;",null);
-                        break;
-                    case 5:
-                        cursor = db.rawQuery("SELECT * FROM Friday_2 WHERE Object_Id = " + Current_Row_ID + " ;",null);
-                        break;
-                    case 6:
-                        cursor = db.rawQuery("SELECT * FROM Saturday_2 WHERE Object_Id = " + Current_Row_ID + " ;",null);
-                        break;
-                    case 7:
-                        cursor = db.rawQuery("SELECT * FROM Sunday_2 WHERE Object_Id = " + Current_Row_ID + " ;",null);
-                        break;
-                }
-                break;
-        }
-
-        if(cursor.moveToFirst()){
-            do{
-                if (cursor.getString(1)!=null){t1.setText(cursor.getString(1));}
-                if (cursor.getString(2)!=null){t2.setText(cursor.getString(2));}
-                if (cursor.getString(3)!=null){t3.setText(cursor.getString(3));}
-                if (cursor.getString(4)!=null){t4.setText(cursor.getString(4));}
-                if (cursor.getString(5)!=null){t5.setText(cursor.getString(5));}
-                if (cursor.getString(6)!=null){t6.setText(cursor.getString(6));}
-                if (cursor.getString(7)!=null){t7.setText(cursor.getString(7));}
-                if (cursor.getString(8)!=null){t8.setText(cursor.getString(8));}
-                if (cursor.getString(9)!=null){t9.setText(cursor.getString(9));}
-            }
-            while(cursor.moveToNext());
-        }
-
-        db.close();
-        cursor.close();
-
         BottomNavigationView Bot_Menu = findViewById(R.id.bot_menu_add_fragment);
         Bot_Menu.setOnNavigationItemSelectedListener(bot_menu_listener);
     }
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener bot_menu_listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -148,6 +70,8 @@ public class EditItemActivity extends AppCompatActivity {
             Val.put("Teacher_Phone", t8_str);
             Val.put("Teacher_Mail", t9_str);
 
+            Val.put("Favourite", "0");
+
             SQLiteDatabase db = getApplicationContext().openOrCreateDatabase(items_DB, MODE_PRIVATE, null);
 
             switch (Current_Week){
@@ -155,45 +79,52 @@ public class EditItemActivity extends AppCompatActivity {
                     switch (Current_Day_Num){
                         case 1:
                             db.beginTransaction();
-                            db.update("Monday_1", Val, "Object_Id = " + Current_Row_ID, null);
+                            db.insert("Monday_1", null, Val);
                             db.setTransactionSuccessful();
                             db.endTransaction();
+                            //DB.add_item_to_db(items_DB, "Monday_1", Val);
                             break;
                         case 2:
                             db.beginTransaction();
-                            db.update("Tuesday_1", Val, "Object_Id = " + Current_Row_ID, null);
+                            db.insert("Tuesday_1", null, Val);
                             db.setTransactionSuccessful();
                             db.endTransaction();
+                            //DB.add_item_to_db(items_DB, "Tuesday_1", Val);
                             break;
                         case 3:
                             db.beginTransaction();
-                            db.update("Wednesday_1", Val, "Object_Id = " + Current_Row_ID, null);
+                            db.insert("Wednesday_1", null, Val);
                             db.setTransactionSuccessful();
                             db.endTransaction();
+                            //DB.add_item_to_db(items_DB, "Wednesday_1", Val);
                             break;
                         case 4:
                             db.beginTransaction();
-                            db.update("Thursday_1", Val, "Object_Id = " + Current_Row_ID, null);
+                            db.insert("Thursday_1", null, Val);
                             db.setTransactionSuccessful();
                             db.endTransaction();
+                            //DB.add_item_to_db(items_DB, "Thursday_1", Val);
                             break;
                         case 5:
                             db.beginTransaction();
-                            db.update("Friday_1", Val, "Object_Id = " + Current_Row_ID, null);
+                            db.insert("Friday_1", null, Val);
                             db.setTransactionSuccessful();
                             db.endTransaction();
+                            //DB.add_item_to_db(items_DB, "Friday_1", Val);
                             break;
                         case 6:
                             db.beginTransaction();
-                            db.update("Saturday_1", Val, "Object_Id = " + Current_Row_ID, null);
+                            db.insert("Saturday_1", null, Val);
                             db.setTransactionSuccessful();
                             db.endTransaction();
+                            //DB.add_item_to_db(items_DB, "Saturday_1", Val);
                             break;
                         case 7:
                             db.beginTransaction();
-                            db.update("Sunday_1", Val, "Object_Id = " + Current_Row_ID, null);
+                            db.insert("Sunday_1", null, Val);
                             db.setTransactionSuccessful();
                             db.endTransaction();
+                            //DB.add_item_to_db(items_DB, "Sunday_1", Val);
                             break;
                     }
                     break;
@@ -201,55 +132,63 @@ public class EditItemActivity extends AppCompatActivity {
                     switch (Current_Day_Num){
                         case 1:
                             db.beginTransaction();
-                            db.update("Monday_2", Val, "Object_Id = " + Current_Row_ID, null);
+                            db.insert("Monday_2", null, Val);
                             db.setTransactionSuccessful();
                             db.endTransaction();
+                            //DB.add_item_to_db(items_DB, "Monday_1", Val);
                             break;
                         case 2:
                             db.beginTransaction();
-                            db.update("Tuesday_2", Val, "Object_Id = " + Current_Row_ID, null);
+                            db.insert("Tuesday_2", null, Val);
                             db.setTransactionSuccessful();
                             db.endTransaction();
+                            //DB.add_item_to_db(items_DB, "Tuesday_1", Val);
                             break;
                         case 3:
                             db.beginTransaction();
-                            db.update("Wednesday_2", Val, "Object_Id = " + Current_Row_ID, null);
+                            db.insert("Wednesday_2", null, Val);
                             db.setTransactionSuccessful();
                             db.endTransaction();
+                            //DB.add_item_to_db(items_DB, "Wednesday_1", Val);
                             break;
                         case 4:
                             db.beginTransaction();
-                            db.update("Thursday_2", Val, "Object_Id = " + Current_Row_ID, null);
+                            db.insert("Thursday_2", null, Val);
                             db.setTransactionSuccessful();
                             db.endTransaction();
+                            //DB.add_item_to_db(items_DB, "Thursday_1", Val);
                             break;
                         case 5:
                             db.beginTransaction();
-                            db.update("Friday_2", Val, "Object_Id = " + Current_Row_ID, null);
+                            db.insert("Friday_2", null, Val);
                             db.setTransactionSuccessful();
                             db.endTransaction();
+                            //DB.add_item_to_db(items_DB, "Friday_1", Val);
                             break;
                         case 6:
                             db.beginTransaction();
-                            db.update("Saturday_2", Val, "Object_Id = " + Current_Row_ID, null);
+                            db.insert("Saturday_2", null, Val);
                             db.setTransactionSuccessful();
                             db.endTransaction();
+                            //DB.add_item_to_db(items_DB, "Saturday_1", Val);
                             break;
                         case 7:
                             db.beginTransaction();
-                            db.update("Sunday_2", Val, "Object_Id = " + Current_Row_ID, null);
+                            db.insert("Sunday_2", null, Val);
                             db.setTransactionSuccessful();
                             db.endTransaction();
+                            //DB.add_item_to_db(items_DB, "Sunday_1", Val);
                             break;
                     }
                     break;
             }
-            db.close();
 
-            Intent intent = new Intent(EditItemActivity.this, MainActivity.class);
+            Intent intent = new Intent(AddItemActivity.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
-            Toast.makeText(getBaseContext(), "Предмет изменен", Toast.LENGTH_LONG).show();
+
+            Toast.makeText(getBaseContext(), "Предмет добавлен", Toast.LENGTH_LONG).show();
+
             return true;
         }
     };

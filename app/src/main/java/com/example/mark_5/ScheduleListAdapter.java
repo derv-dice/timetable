@@ -22,7 +22,7 @@ public class ScheduleListAdapter extends BaseAdapter {
     private ArrayList<ScheduleItem> objects;
     private String items_DB = "save8.db";
 
-    //ScheduleListAdapter(Context context, int resource, ArrayList<ScheduleItem> items) {
+
     ScheduleListAdapter(Context context, int resource, ArrayList<ScheduleItem> items) {
         this.layout = resource;
         this.objects = items;
@@ -111,6 +111,7 @@ public class ScheduleListAdapter extends BaseAdapter {
         viewHolder.List_Item_Layout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+                viewHolder.List_Item_Layout.setBackground(ContextCompat.getDrawable(finalView.getContext(), R.drawable.ic_mainlistrow_v2_background_picture_rounded_selected));
                 return false;
             }
         });
