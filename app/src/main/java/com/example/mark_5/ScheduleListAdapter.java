@@ -69,8 +69,8 @@ public class ScheduleListAdapter extends BaseAdapter {
         viewHolder.Item_Name.setText(Item.getItem_Name());
         viewHolder.Teacher_Name.setText(Item.getTeacher_Name());
         viewHolder.Item_Mode.setText(Item.getItem_Mode());
-        viewHolder.Item_Auditorium.setText(Item.getItem_Auditorium());
-        viewHolder.Item_Building.setText(Item.getItem_Building());
+        viewHolder.Item_Auditorium.setText("ауд. " + Item.getItem_Auditorium());
+        viewHolder.Item_Building.setText("к. " + Item.getItem_Building());
 
         final View finalView = convertView;
 

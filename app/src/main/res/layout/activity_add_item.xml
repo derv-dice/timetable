@@ -10,12 +10,12 @@
     tools:context=".AddItemActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bot_menu_add_fragment"
         android:background="@color/Dark_Theme_Gray_Dark"
-        android:orientation="vertical"
-        android:id="@+id/linearLayout">
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/editText4"
