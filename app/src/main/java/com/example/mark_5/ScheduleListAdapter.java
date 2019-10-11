@@ -20,7 +20,7 @@ public class ScheduleListAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private int layout;
     private ArrayList<ScheduleItem> objects;
-    private String items_DB = "save8.db";
+    private String items_DB = "save9.db";
 
 
     ScheduleListAdapter(Context context, int resource, ArrayList<ScheduleItem> items) {
@@ -100,11 +100,10 @@ public class ScheduleListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-                // Запрос в БД на добавление в избранное
-
                 // Временная визуальная хрень
                 viewHolder.Mark_Button.setBackground(ContextCompat.getDrawable(finalView.getContext(), R.drawable.ic_mainlistrow_v2_checked_mark_btn));
                 //В ременная визуальная хрень
+
             }
         });
 

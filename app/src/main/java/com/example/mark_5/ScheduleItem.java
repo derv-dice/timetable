@@ -15,10 +15,12 @@ public class ScheduleItem {
     private String Teacher_Mail;            // Электронная почта преподавателя
     private String Favourite;               // Содержится ли предмет в избранном
 
+    private String Context_Table;           // Таблица, содержащая данный элемент
+
     ScheduleItem(String _Object_ID, String _Time0, String _Time1, String _Item_Name,
                  String _Teacher_Name, String _Item_Mode, String _Item_Auditorium,
                  String _Item_Building, String _Teacher_Phone, String _Teacher_Mail,
-                 String _Favourite){
+                 String _Favourite, String _Context_Table){
 
         Object_Id = _Object_ID;
 
@@ -33,6 +35,8 @@ public class ScheduleItem {
         Teacher_Phone = _Teacher_Phone;
         Teacher_Mail = _Teacher_Mail;
         Favourite = _Favourite;
+
+        Context_Table = _Context_Table;
     }
 
     public boolean Is_Favourite(){
@@ -74,5 +78,8 @@ public class ScheduleItem {
     }
     public String getFavourite () {
         return Favourite;
+    }
+    public String getContext_Table(){
+        return Context_Table;
     }
 }
