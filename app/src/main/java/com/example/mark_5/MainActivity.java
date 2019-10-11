@@ -20,7 +20,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private int Selected_Item_Position = 0;
     private BottomNavigationView edit_mode_menu;
 
-    private String items_DB = "save8.db";
+    private String items_DB = "save9.db";
     private ArrayList<ScheduleItem> Main_Array_List;
     private ScheduleListAdapter Main_Array_List_Adapter;
     private String current_row_id = "0";
@@ -42,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume()
     {
         super.onResume();
-        update_Main_ListView(Week,Current_Day_Num);
+        update_Main_ListView(Week, Current_Day_Num);
         edit_mode_menu.setEnabled(false);
         edit_mode_menu.setVisibility(View.INVISIBLE);
         patch.setVisibility(View.INVISIBLE);
@@ -53,10 +57,11 @@ public class MainActivity extends AppCompatActivity {
         db.execSQL("CREATE TABLE IF NOT EXISTS " + table_name + " (Object_Id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "Time0 TEXT, Time1 TEXT, Item_name TEXT, Teacher_name TEXT, Item_mode TEXT, " +
                 "Item_auditorium TEXT, Item_building TEXT, Teacher_Phone TEXT, " +
-                "Teacher_Mail TEXT, Favourite TEXT)");
+                "Teacher_Mail TEXT, Favourite TEXT, Context_Table TEXT)");
         db.close();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +96,41 @@ public class MainActivity extends AppCompatActivity {
 
         edit_mode_menu.setVisibility(View.INVISIBLE);
         edit_mode_menu.setEnabled(false);
+
+        TextView Header = findViewById(R.id.day_of_the_week);
+        LocalDate date = LocalDate.now();
+        DayOfWeek dow = date.getDayOfWeek();
+        String dayName = dow.getDisplayName(TextStyle.SHORT_STANDALONE , Locale.ENGLISH);
+        switch (dayName){
+            case "Mon":
+                Header.setText("Понедельник");
+                Current_Day_Num = 1;
+                break;
+            case "Tue":
+                Header.setText("Вторник");
+                Current_Day_Num = 2;
+                break;
+            case "Wed":
+                Header.setText("Среда");
+                Current_Day_Num = 3;
+                break;
+            case "Thu":
+                Header.setText("Четверг");
+                Current_Day_Num = 4;
+                break;
+            case "Fri":
+                Header.setText("Пятница");
+                Current_Day_Num = 5;
+                break;
+            case "Sat":
+                Header.setText("Суббота");
+                Current_Day_Num = 6;
+                break;
+            case "Sun":
+                Header.setText("Воскресенье");
+                Current_Day_Num = 7;
+                break;
+        }
 
         update_Main_ListView(Week, Current_Day_Num);
 
@@ -145,6 +185,9 @@ public class MainActivity extends AppCompatActivity {
             Week_Btn.setText(R.string.Week_1);
         }
         update_Main_ListView(Week, Current_Day_Num);
+        edit_mode_menu.setEnabled(false);
+        edit_mode_menu.setVisibility(View.INVISIBLE);
+        patch.setVisibility(View.INVISIBLE);
     }
 
     public void update_Main_ListView(Integer Week, Integer Day){
@@ -222,7 +265,9 @@ public class MainActivity extends AppCompatActivity {
                 String Teacher_Mail = cursor.getString(9);
                 String Favourite = cursor.getString(10);
 
-                Main_Array_List.add(new ScheduleItem(Object_Id, Time0, Time1, Item_name, Teacher_name, Item_mode, Item_auditorium, Item_building, Teacher_Phone, Teacher_Mail, Favourite));
+                String Context_Table = cursor.getString(11);
+
+                Main_Array_List.add(new ScheduleItem(Object_Id, Time0, Time1, Item_name, Teacher_name, Item_mode, Item_auditorium, Item_building, Teacher_Phone, Teacher_Mail, Favourite, Context_Table));
             }
             while(cursor.moveToNext());
         }
@@ -340,13 +385,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener bot_menu_listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            update_Main_ListView(Week, Current_Day_Num);
-            edit_mode_menu.setEnabled(false);
-            edit_mode_menu.setVisibility(View.INVISIBLE);
-            patch.setVisibility(View.INVISIBLE);
-
             switch (menuItem.getItemId()){
                 case  R.id.add_button: // Добавление строки в список предметов
 
@@ -362,15 +403,55 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
                 case R.id.menu_button:
-
+                    TextView Header = findViewById(R.id.day_of_the_week);
+                    LocalDate date = LocalDate.now();
+                    DayOfWeek dow = date.getDayOfWeek();
+                    String dayName = dow.getDisplayName(TextStyle.SHORT_STANDALONE , Locale.ENGLISH);
+                    switch (dayName){
+                        case "Mon":
+                            Header.setText("Понедельник");
+                            Current_Day_Num = 1;
+                            break;
+                        case "Tue":
+                            Header.setText("Вторник");
+                            Current_Day_Num = 2;
+                            break;
+                        case "Wed":
+                            Header.setText("Среда");
+                            Current_Day_Num = 3;
+                            break;
+                        case "Thu":
+                            Header.setText("Четверг");
+                            Current_Day_Num = 4;
+                            break;
+                        case "Fri":
+                            Header.setText("Пятница");
+                            Current_Day_Num = 5;
+                            break;
+                        case "Sat":
+                            Header.setText("Суббота");
+                            Current_Day_Num = 6;
+                            break;
+                        case "Sun":
+                            Header.setText("Воскресенье");
+                            Current_Day_Num = 7;
+                            break;
+                    }
                     break;
             }
+            update_Main_ListView(Week, Current_Day_Num);
+            edit_mode_menu.setEnabled(false);
+            edit_mode_menu.setVisibility(View.INVISIBLE);
+            patch.setVisibility(View.INVISIBLE);
             return true;
         }
     };
 
     public void Day_Change_Right(){
         TextView Header = findViewById(R.id.day_of_the_week);
+        edit_mode_menu.setEnabled(false);
+        edit_mode_menu.setVisibility(View.INVISIBLE);
+        patch.setVisibility(View.INVISIBLE);
         switch (Header.getText().toString()){
             case "Понедельник":
                 Header.setText("Воскресенье");
@@ -413,6 +494,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void Day_Change_Left(){
         TextView Header = findViewById(R.id.day_of_the_week);
+        edit_mode_menu.setEnabled(false);
+        edit_mode_menu.setVisibility(View.INVISIBLE);
+        patch.setVisibility(View.INVISIBLE);
         switch (Header.getText().toString()){
             case "Понедельник":
                 Header.setText("Вторник");

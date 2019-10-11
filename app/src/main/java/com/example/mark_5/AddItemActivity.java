@@ -19,7 +19,7 @@ public class AddItemActivity extends AppCompatActivity {
     public String t1_str, t2_str, t3_str, t4_str, t5_str, t6_str, t7_str, t8_str, t9_str;
     private int Current_Day_Num = 0;
     private int Current_Week = 0;
-    private String items_DB = "save8.db";
+    private String items_DB = "save9.db";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,12 +72,15 @@ public class AddItemActivity extends AppCompatActivity {
 
             Val.put("Favourite", "0");
 
+
+
             SQLiteDatabase db = getApplicationContext().openOrCreateDatabase(items_DB, MODE_PRIVATE, null);
 
             switch (Current_Week){
                 case 1:   // ЧИСЛИТЕЛЬ
                     switch (Current_Day_Num){
                         case 1:
+                            Val.put("Context_Table", "Monday_1");
                             db.beginTransaction();
                             db.insert("Monday_1", null, Val);
                             db.setTransactionSuccessful();
@@ -85,6 +88,7 @@ public class AddItemActivity extends AppCompatActivity {
                             //DB.add_item_to_db(items_DB, "Monday_1", Val);
                             break;
                         case 2:
+                            Val.put("Context_Table", "Tuesday_1");
                             db.beginTransaction();
                             db.insert("Tuesday_1", null, Val);
                             db.setTransactionSuccessful();
@@ -92,6 +96,7 @@ public class AddItemActivity extends AppCompatActivity {
                             //DB.add_item_to_db(items_DB, "Tuesday_1", Val);
                             break;
                         case 3:
+                            Val.put("Context_Table", "Wednesday_1");
                             db.beginTransaction();
                             db.insert("Wednesday_1", null, Val);
                             db.setTransactionSuccessful();
@@ -99,6 +104,7 @@ public class AddItemActivity extends AppCompatActivity {
                             //DB.add_item_to_db(items_DB, "Wednesday_1", Val);
                             break;
                         case 4:
+                            Val.put("Context_Table", "Thursday_1");
                             db.beginTransaction();
                             db.insert("Thursday_1", null, Val);
                             db.setTransactionSuccessful();
@@ -106,6 +112,7 @@ public class AddItemActivity extends AppCompatActivity {
                             //DB.add_item_to_db(items_DB, "Thursday_1", Val);
                             break;
                         case 5:
+                            Val.put("Context_Table", "Friday_1");
                             db.beginTransaction();
                             db.insert("Friday_1", null, Val);
                             db.setTransactionSuccessful();
@@ -113,6 +120,7 @@ public class AddItemActivity extends AppCompatActivity {
                             //DB.add_item_to_db(items_DB, "Friday_1", Val);
                             break;
                         case 6:
+                            Val.put("Context_Table", "Saturday_1");
                             db.beginTransaction();
                             db.insert("Saturday_1", null, Val);
                             db.setTransactionSuccessful();
@@ -120,6 +128,7 @@ public class AddItemActivity extends AppCompatActivity {
                             //DB.add_item_to_db(items_DB, "Saturday_1", Val);
                             break;
                         case 7:
+                            Val.put("Context_Table", "Sunday_1");
                             db.beginTransaction();
                             db.insert("Sunday_1", null, Val);
                             db.setTransactionSuccessful();
@@ -131,6 +140,7 @@ public class AddItemActivity extends AppCompatActivity {
                 case 2:   // ЗНАМЕНАТЕЛЬ
                     switch (Current_Day_Num){
                         case 1:
+                            Val.put("Context_Table", "Monday_2");
                             db.beginTransaction();
                             db.insert("Monday_2", null, Val);
                             db.setTransactionSuccessful();
@@ -138,6 +148,7 @@ public class AddItemActivity extends AppCompatActivity {
                             //DB.add_item_to_db(items_DB, "Monday_1", Val);
                             break;
                         case 2:
+                            Val.put("Context_Table", "Tuesday_2");
                             db.beginTransaction();
                             db.insert("Tuesday_2", null, Val);
                             db.setTransactionSuccessful();
@@ -145,6 +156,7 @@ public class AddItemActivity extends AppCompatActivity {
                             //DB.add_item_to_db(items_DB, "Tuesday_1", Val);
                             break;
                         case 3:
+                            Val.put("Context_Table", "Wednesday_2");
                             db.beginTransaction();
                             db.insert("Wednesday_2", null, Val);
                             db.setTransactionSuccessful();
@@ -152,6 +164,7 @@ public class AddItemActivity extends AppCompatActivity {
                             //DB.add_item_to_db(items_DB, "Wednesday_1", Val);
                             break;
                         case 4:
+                            Val.put("Context_Table", "Thursday_2");
                             db.beginTransaction();
                             db.insert("Thursday_2", null, Val);
                             db.setTransactionSuccessful();
@@ -159,6 +172,7 @@ public class AddItemActivity extends AppCompatActivity {
                             //DB.add_item_to_db(items_DB, "Thursday_1", Val);
                             break;
                         case 5:
+                            Val.put("Context_Table", "Friday_2");
                             db.beginTransaction();
                             db.insert("Friday_2", null, Val);
                             db.setTransactionSuccessful();
@@ -166,6 +180,7 @@ public class AddItemActivity extends AppCompatActivity {
                             //DB.add_item_to_db(items_DB, "Friday_1", Val);
                             break;
                         case 6:
+                            Val.put("Context_Table", "Saturday_2");
                             db.beginTransaction();
                             db.insert("Saturday_2", null, Val);
                             db.setTransactionSuccessful();
@@ -173,6 +188,7 @@ public class AddItemActivity extends AppCompatActivity {
                             //DB.add_item_to_db(items_DB, "Saturday_1", Val);
                             break;
                         case 7:
+                            Val.put("Context_Table", "Sunday_2");
                             db.beginTransaction();
                             db.insert("Sunday_2", null, Val);
                             db.setTransactionSuccessful();
