@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
+
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
