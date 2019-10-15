@@ -2,6 +2,7 @@ package com.example.mark_5;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
@@ -24,9 +25,13 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+
+    SharedPreferences settings;
 
     private ListView Main_ListView;
     private int Current_Day_Num = 1;
@@ -43,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private Button patch;
 
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
         super.onResume();
         update_Main_ListView(Week, Current_Day_Num);
         edit_mode_menu.setEnabled(false);
@@ -52,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         patch.setVisibility(View.INVISIBLE);
     }
 
-    private void first_create_table(String db_name, String table_name){
+    private void first_create_table(String db_name, String table_name) {
         SQLiteDatabase db = getApplicationContext().openOrCreateDatabase(db_name, MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS " + table_name + " (Object_Id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "Time0 TEXT, Time1 TEXT, Item_name TEXT, Teacher_name TEXT, Item_mode TEXT, " +
@@ -67,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        settings = getSharedPreferences("App_Settings", MODE_PRIVATE);
+
         patch = findViewById(R.id.patch);
         patch.setVisibility(View.INVISIBLE);
 
@@ -100,8 +107,8 @@ public class MainActivity extends AppCompatActivity {
         TextView Header = findViewById(R.id.day_of_the_week);
         LocalDate date = LocalDate.now();
         DayOfWeek dow = date.getDayOfWeek();
-        String dayName = dow.getDisplayName(TextStyle.SHORT_STANDALONE , Locale.ENGLISH);
-        switch (dayName){
+        String dayName = dow.getDisplayName(TextStyle.SHORT_STANDALONE, Locale.ENGLISH);
+        switch (dayName) {
             case "Mon":
                 Header.setText("Понедельник");
                 Current_Day_Num = 1;
@@ -132,12 +139,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
+        Week_Mode_Calculate();
+
         update_Main_ListView(Week, Current_Day_Num);
 
         Main_ListView.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeRight() {
                 Day_Change_Right();
             }
+
             public void onSwipeLeft() {
                 Day_Change_Left();
             }
@@ -161,26 +171,56 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void Week_Mode_Calculate() {
+        int Year1 = settings.getInt("Year", 2019);
+        int Month1 = settings.getInt("Month", 8);
+        int Day1 = settings.getInt("Day", 1);
+
+        Calendar date1 = new GregorianCalendar(Year1, Month1, Day1);
+
+        Calendar date2 = Calendar.getInstance();
+        int week = date2.get(Calendar.WEEK_OF_YEAR) - date1.get(Calendar.WEEK_OF_YEAR);
+
+        //int visual_week = week+1;
+
+        //Toast.makeText(getBaseContext(), "Сейчас " + visual_week + " неделя", Toast.LENGTH_LONG).show();
+
+        if (week % 2 == 0) {
+            Week = 2;
+        } else {
+            Week = 1;
+        }
+
+        Week_Btn = findViewById(R.id.Week_Stage);
+        if (Week == 1) {
+            Week = 2;
+            Week_Btn.setText(R.string.Week_2);
+        } else {
+            Week = 1;
+            Week_Btn.setText(R.string.Week_1);
+        }
+    }
+
     @Override
     public void onBackPressed() {
-        if (edit_mode_menu.isEnabled()){
+        if (edit_mode_menu.isEnabled()) {
             patch.setVisibility(View.INVISIBLE);
             edit_mode_menu.setEnabled(false);
             edit_mode_menu.setVisibility(View.INVISIBLE);
             update_Main_ListView(Week, Current_Day_Num);
-        }
-        else{
+        } else {
             finish();
         }
     }
 
-    public void Change_Week_Stage(View view){
+    public void Change_Week_Stage(View view) {
         Week_Btn = findViewById(R.id.Week_Stage);
-        if (Week == 1){
+        if (Week == 1) {
             Week = 2;
             Week_Btn.setText(R.string.Week_2);
-        }
-        else{
+        } else {
             Week = 1;
             Week_Btn.setText(R.string.Week_1);
         }
@@ -190,18 +230,18 @@ public class MainActivity extends AppCompatActivity {
         patch.setVisibility(View.INVISIBLE);
     }
 
-    public void update_Main_ListView(Integer Week, Integer Day){
+    public void update_Main_ListView(Integer Week, Integer Day) {
         Main_ListView = findViewById(R.id.List);
         Main_Array_List = new ArrayList<ScheduleItem>();
         SQLiteDatabase db = getApplicationContext().openOrCreateDatabase(items_DB, MODE_PRIVATE, null);
 
         Cursor cursor = null;
 
-        switch (Week){  // В зависимости от текущей недели и дня недели выбирается нужная таблица из базы данных save_n.db
+        switch (Week) {  // В зависимости от текущей недели и дня недели выбирается нужная таблица из базы данных save_n.db
             case 1:
-                switch (Day){
+                switch (Day) {
                     case 1:
-                        cursor = db.rawQuery("SELECT * FROM Monday_1;",null);
+                        cursor = db.rawQuery("SELECT * FROM Monday_1;", null);
                         break;
                     case 2:
                         cursor = db.rawQuery("SELECT * FROM Tuesday_1;", null);
@@ -224,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case 2:
-                switch (Day){
+                switch (Day) {
                     case 1:
                         cursor = db.rawQuery("SELECT * FROM Monday_2;", null);
                         break;
@@ -250,8 +290,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        if(cursor.moveToFirst()){
-            do{
+        if (cursor.moveToFirst()) {
+            do {
                 String Object_Id = cursor.getString(0);
                 String Time0 = cursor.getString(1);
                 String Time1 = cursor.getString(2);
@@ -269,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Main_Array_List.add(new ScheduleItem(Object_Id, Time0, Time1, Item_name, Teacher_name, Item_mode, Item_auditorium, Item_building, Teacher_Phone, Teacher_Mail, Favourite, Context_Table));
             }
-            while(cursor.moveToNext());
+            while (cursor.moveToNext());
         }
         Main_Array_List_Adapter = new ScheduleListAdapter(MainActivity.this, R.layout.list_item_layout_v2, Main_Array_List);
         Main_ListView.setAdapter(Main_Array_List_Adapter);
@@ -279,12 +319,11 @@ public class MainActivity extends AppCompatActivity {
         db.close();
     }
 
-    private void check_day_for_empty(int cursor_count){
+    private void check_day_for_empty(int cursor_count) {
         TextView If_Day_Is_Empty = findViewById(R.id.Empty_Day_Text);
-        if (cursor_count > 0){
+        if (cursor_count > 0) {
             If_Day_Is_Empty.setAlpha(0.0f);
-        }
-        else {
+        } else {
             If_Day_Is_Empty.setAlpha(1.0f);
         }
     }
@@ -292,7 +331,7 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener edit_menu_listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            switch (menuItem.getItemId()){
+            switch (menuItem.getItemId()) {
                 case R.id.edit_button:
                     Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
 
@@ -305,73 +344,73 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.delete_button:
                     SQLiteDatabase db = getApplicationContext().openOrCreateDatabase(items_DB, MODE_PRIVATE, null);
-                    switch (Week){  // В зависимости от текущей недели и дня недели выбирается нужная таблица из базы данных save_n.db
+                    switch (Week) {  // В зависимости от текущей недели и дня недели выбирается нужная таблица из базы данных save_n.db
                         case 1:
-                            switch (Current_Day_Num){
+                            switch (Current_Day_Num) {
                                 case 1:
-                                    db.delete("Monday_1", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.delete("Monday_1", "Object_Id = ?", new String[]{current_row_id});
                                     db.close();
                                     break;
                                 case 2:
-                                    db.delete("Tuesday_1", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.delete("Tuesday_1", "Object_Id = ?", new String[]{current_row_id});
                                     db.close();
                                     break;
                                 case 3:
-                                    db.delete("Wednesday_1", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.delete("Wednesday_1", "Object_Id = ?", new String[]{current_row_id});
                                     db.close();
                                     break;
                                 case 4:
-                                    db.delete("Thursday_1", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.delete("Thursday_1", "Object_Id = ?", new String[]{current_row_id});
                                     db.close();
                                     break;
                                 case 5:
-                                    db.delete("Friday_1", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.delete("Friday_1", "Object_Id = ?", new String[]{current_row_id});
                                     db.close();
                                     break;
                                 case 6:
-                                    db.delete("Saturday_1", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.delete("Saturday_1", "Object_Id = ?", new String[]{current_row_id});
                                     db.close();
                                     break;
                                 case 7:
-                                    db.delete("Sunday_1", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.delete("Sunday_1", "Object_Id = ?", new String[]{current_row_id});
                                     db.close();
                                     break;
                             }
                             break;
                         case 2:
-                            switch (Current_Day_Num){
+                            switch (Current_Day_Num) {
                                 case 1:
-                                    db.delete("Monday_2", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.delete("Monday_2", "Object_Id = ?", new String[]{current_row_id});
                                     db.close();
                                     break;
                                 case 2:
-                                    db.delete("Tuesday_2", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.delete("Tuesday_2", "Object_Id = ?", new String[]{current_row_id});
                                     db.close();
                                     break;
                                 case 3:
-                                    db.delete("Wednesday_2", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.delete("Wednesday_2", "Object_Id = ?", new String[]{current_row_id});
                                     db.close();
                                     break;
                                 case 4:
-                                    db.delete("Thursday_2", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.delete("Thursday_2", "Object_Id = ?", new String[]{current_row_id});
                                     db.close();
                                     break;
                                 case 5:
-                                    db.delete("Friday_2", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.delete("Friday_2", "Object_Id = ?", new String[]{current_row_id});
                                     db.close();
                                     break;
                                 case 6:
-                                    db.delete("Saturday_2", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.delete("Saturday_2", "Object_Id = ?", new String[]{current_row_id});
                                     db.close();
                                     break;
                                 case 7:
-                                    db.delete("Sunday_2", "Object_Id = ?", new String[]{current_row_id} );
+                                    db.delete("Sunday_2", "Object_Id = ?", new String[]{current_row_id});
                                     db.close();
                                     break;
                             }
                             break;
                     }
-                    Toast.makeText(MainActivity.this, "Предмет удален" , Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Предмет удален", Toast.LENGTH_LONG).show();
                     update_Main_ListView(Week, Current_Day_Num);
                     edit_mode_menu.setEnabled(false);
                     edit_mode_menu.setVisibility(View.INVISIBLE);
@@ -388,8 +427,8 @@ public class MainActivity extends AppCompatActivity {
         @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            switch (menuItem.getItemId()){
-                case  R.id.add_button: // Добавление строки в список предметов
+            switch (menuItem.getItemId()) {
+                case R.id.add_button: // Добавление строки в список предметов
 
                     Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
 
@@ -400,14 +439,17 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.settings_button:
+                    Intent intent2 = new Intent(MainActivity.this, SettingsActivity.class);
 
+                    intent2.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent2);
                     break;
                 case R.id.menu_button:
                     TextView Header = findViewById(R.id.day_of_the_week);
                     LocalDate date = LocalDate.now();
                     DayOfWeek dow = date.getDayOfWeek();
-                    String dayName = dow.getDisplayName(TextStyle.SHORT_STANDALONE , Locale.ENGLISH);
-                    switch (dayName){
+                    String dayName = dow.getDisplayName(TextStyle.SHORT_STANDALONE, Locale.ENGLISH);
+                    switch (dayName) {
                         case "Mon":
                             Header.setText("Понедельник");
                             Current_Day_Num = 1;
@@ -439,6 +481,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
             }
+            Week_Mode_Calculate();
             update_Main_ListView(Week, Current_Day_Num);
             edit_mode_menu.setEnabled(false);
             edit_mode_menu.setVisibility(View.INVISIBLE);
@@ -447,12 +490,12 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void Day_Change_Right(){
+    public void Day_Change_Right() {
         TextView Header = findViewById(R.id.day_of_the_week);
         edit_mode_menu.setEnabled(false);
         edit_mode_menu.setVisibility(View.INVISIBLE);
         patch.setVisibility(View.INVISIBLE);
-        switch (Header.getText().toString()){
+        switch (Header.getText().toString()) {
             case "Понедельник":
                 Header.setText("Воскресенье");
                 Current_Day_Num = 7;
@@ -489,15 +532,15 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
         }
-        update_Main_ListView(Week,Current_Day_Num);
+        update_Main_ListView(Week, Current_Day_Num);
     }
 
-    public void Day_Change_Left(){
+    public void Day_Change_Left() {
         TextView Header = findViewById(R.id.day_of_the_week);
         edit_mode_menu.setEnabled(false);
         edit_mode_menu.setVisibility(View.INVISIBLE);
         patch.setVisibility(View.INVISIBLE);
-        switch (Header.getText().toString()){
+        switch (Header.getText().toString()) {
             case "Понедельник":
                 Header.setText("Вторник");
                 Current_Day_Num = 2;
@@ -534,7 +577,7 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
         }
-        update_Main_ListView(Week,Current_Day_Num);
+        update_Main_ListView(Week, Current_Day_Num);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener top_menu_listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -542,7 +585,7 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             TextView Header = findViewById(R.id.day_of_the_week);
 
-            switch (menuItem.getItemId()){
+            switch (menuItem.getItemId()) {
                 case R.id.left_arrow_button:
                     Day_Change_Right();
                     break;

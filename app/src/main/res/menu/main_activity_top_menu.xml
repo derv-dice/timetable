@@ -3,8 +3,8 @@
 
     <item
         android:id="@+id/left_arrow_button"
-        android:icon="@drawable/ic_arrow_back_black_24dp"
-        android:title="@string/return_back" />
+        android:icon="@drawable/ic_chevron_left_black_24dp"
+        android:title="@string/Next" />
 
     <item
         android:id="@+id/space1"
@@ -22,8 +22,8 @@
         android:title="@string/prev" />
 
     <item
-        android:id="@+id/space4"
-        android:enabled="false"
+        android:id="@+id/right_arrow_button"
+        android:icon="@drawable/ic_chevron_right_black_24dp"
         android:title="@string/prev" />
 
 </menu>

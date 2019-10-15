@@ -12,8 +12,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text_1">Время занятия</string>
     <string name="text_2">Название предмета</string>
-    <string name="Week_1">Числитель</string>
-    <string name="Week_2">Знаменатель</string>
+    <string name="Week_1">Нечетная неделя</string>
+    <string name="Week_2">Четная неделя</string>
     <string name="Empty_Day_String">Сегодня пар нет</string>
     <string name="edit">Редактировать</string>
+    <string name="return_back">Назад</string>
+    <string name="Aply">Принять изменения</string>
 </resources>

@@ -3,14 +3,15 @@
     <item
         android:id="@+id/space1"
         android:enabled="false"
-        android:title="@string/prev" />
+        android:title="" />
 
     <item
         android:id="@+id/add_button_menu"
-        android:title="Новый предмет" />
+        android:icon="@drawable/ic_add_black_24dp"
+        android:title="@string/add" />
 
     <item
         android:id="@+id/space2"
         android:enabled="false"
-        android:title="@string/prev" />
+        android:title="" />
 </menu>

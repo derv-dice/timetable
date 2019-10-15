@@ -7,9 +7,9 @@
         android:title="" />
 
     <item
-        android:id="@+id/add_button_menu"
-        android:icon="@drawable/ic_plus_add"
-        android:title="@string/add" />
+        android:id="@+id/aply_button_menu"
+        android:icon="@drawable/ic_check_black_24dp"
+        android:title="@string/Aply" />
 
     <item
         android:id="@+id/space2"

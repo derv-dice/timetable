@@ -17,7 +17,8 @@
         android:text="@string/Empty_Day_String"
         android:textAlignment="center"
         android:textColor="@color/Dark_Theme_Font_Dark"
-        android:textSize="28sp" />
+        android:textSize="28sp"
+        app:fontFamily="sans-serif-thin" />
 
     <ListView
         android:id="@+id/List"
@@ -67,22 +68,23 @@
         app:itemIconTint="@color/colorLiteGray"
         app:itemTextColor="@color/colorLiteGray"
         app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/top_menu">
+        app:menu="@menu/main_activity_top_menu">
 
         <TextView
             android:id="@+id/day_of_the_week"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center_horizontal|center_vertical"
 
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
 
             android:text="@string/header"
             android:textAlignment="center"
             android:textColor="@color/Dark_Theme_Font_Light"
 
-            android:textSize="28sp" />
+            android:textSize="25sp"
+            app:fontFamily="sans-serif-light" />
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <Button
@@ -93,9 +95,11 @@
         android:layout_below="@+id/top_navigation_menu"
         android:layout_marginTop="2dp"
         android:background="@color/Dark_Theme_Gray"
+        android:fontFamily="sans-serif"
         android:onClick="Change_Week_Stage"
         android:text="@string/Week_1"
-        android:textColor="@color/colorLiteGray" />
+        android:textColor="@color/colorLiteGray"
+        android:textStyle="normal" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/edit_mode_menu"
@@ -107,7 +111,7 @@
         app:itemIconTint="@color/colorLiteGray"
         app:itemTextColor="@color/colorLiteGray"
         app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/main_activity_bottom_selected_item_menu" >
+        app:menu="@menu/main_activity_bottom_selected_item_menu">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
