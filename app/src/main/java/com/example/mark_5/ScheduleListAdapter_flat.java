@@ -110,8 +110,6 @@ public class ScheduleListAdapter_flat extends BaseAdapter {
         return convertView;
     }
 
-    //  https://metanit.com/java/android/5.8.php
-
     private class ViewHolder {
         final TextView Time0, Time1, Item_Name, Teacher_Name, Item_Mode, Item_Auditorium, Item_Building;
         final Button File_button, Mail_button, Phone_button;
@@ -130,7 +128,6 @@ public class ScheduleListAdapter_flat extends BaseAdapter {
             List_Item_Layout = view.findViewById(R.id.Item_layout_flat);
         }
     }
-
 }
 
 

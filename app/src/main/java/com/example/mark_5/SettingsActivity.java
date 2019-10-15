@@ -82,7 +82,10 @@ public class SettingsActivity extends AppCompatActivity {
     };
 
     public void setDate(View v) {
-        DatePickerDialog dialog = new DatePickerDialog(SettingsActivity.this, AlertDialog.THEME_HOLO_DARK, d,
+        /*
+        DatePickerDialog dialog = new DatePickerDialog(SettingsActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK, d,
+         */
+        DatePickerDialog dialog = new DatePickerDialog(SettingsActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK, d,
                 date.get(Calendar.YEAR),
                 date.get(Calendar.MONTH),
                 date.get(Calendar.DAY_OF_MONTH));
