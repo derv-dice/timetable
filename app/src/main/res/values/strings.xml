@@ -18,4 +18,5 @@
     <string name="edit">Редактировать</string>
     <string name="return_back">Назад</string>
     <string name="Aply">Принять изменения</string>
+    <string name="time_divider">—</string>
 </resources>

@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String items_DB = "save9.db";
     private ArrayList<ScheduleItem> Main_Array_List;
-    private ScheduleListAdapter Main_Array_List_Adapter;
+    private ScheduleListAdapter_flat Main_Array_List_Adapter;
     private String current_row_id = "0";
     private Button patch;
 
@@ -170,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void Week_Mode_Calculate() {
@@ -311,7 +310,7 @@ public class MainActivity extends AppCompatActivity {
             }
             while (cursor.moveToNext());
         }
-        Main_Array_List_Adapter = new ScheduleListAdapter(MainActivity.this, R.layout.list_item_layout_v2, Main_Array_List);
+        Main_Array_List_Adapter = new ScheduleListAdapter_flat(MainActivity.this, R.layout.list_item_layout_v3_flat, Main_Array_List);
         Main_ListView.setAdapter(Main_Array_List_Adapter);
         check_day_for_empty(cursor.getCount());
 
