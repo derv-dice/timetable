@@ -95,7 +95,7 @@
         android:layout_below="@+id/top_navigation_menu"
         android:layout_marginTop="2dp"
         android:background="@color/Dark_Theme_Gray"
-        android:fontFamily="sans-serif"
+        app:fontFamily="sans-serif"
         android:onClick="Change_Week_Stage"
         android:text="@string/Week_1"
         android:textColor="@color/colorLiteGray"

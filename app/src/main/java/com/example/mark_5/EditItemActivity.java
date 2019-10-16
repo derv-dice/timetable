@@ -21,7 +21,7 @@ public class EditItemActivity extends AppCompatActivity {
     private int Current_Day_Num = 0;
     private int Current_Week = 0;
     private String Current_Row_ID = "0";
-    private String items_DB = "save9.db";
+    private String items_DB = "save10.db";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

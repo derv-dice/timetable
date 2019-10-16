@@ -1,6 +1,7 @@
 package com.example.mark_5;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +21,6 @@ public class ScheduleListAdapter_flat extends BaseAdapter {
     private LayoutInflater inflater;
     private int layout;
     private ArrayList<ScheduleItem> objects;
-    //private String items_DB = "save9.db";
-
 
     ScheduleListAdapter_flat(Context context, int resource, ArrayList<ScheduleItem> items) {
         this.layout = resource;
@@ -50,15 +49,14 @@ public class ScheduleListAdapter_flat extends BaseAdapter {
     // пункт списка
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         final ViewHolder viewHolder;
 
-        if(convertView == null){
+        if (convertView == null) {
             convertView = inflater.inflate(this.layout, parent, false);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
-        }
-        else{
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
@@ -77,13 +75,23 @@ public class ScheduleListAdapter_flat extends BaseAdapter {
         if (Item.getTeacher_Mail().equals("")) viewHolder.Mail_button.setVisibility(View.INVISIBLE);
         else viewHolder.Mail_button.setVisibility(View.VISIBLE);
 
-        if (Item.getTeacher_Phone().equals("")) viewHolder.Phone_button.setVisibility(View.INVISIBLE);
+        if (Item.getTeacher_Phone().equals(""))
+            viewHolder.Phone_button.setVisibility(View.INVISIBLE);
         else viewHolder.Phone_button.setVisibility(View.VISIBLE);
 
-        //if (Item.getTeacher_Mail().equals("")) viewHolder.Mail_button.setVisibility(View.INVISIBLE);
-        //else viewHolder.Mail_button.setVisibility(View.VISIBLE);
 
-        //Item.getTeacher_Phone().equals("")
+        viewHolder.File_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(finalView.getContext(), ItemNoteActivity.class);
+
+                intent.putExtra("Item_Name", Item.getItem_Name());
+                intent.putExtra("Note", Item.getItem_Notes());
+
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                finalView.getContext().startActivity(intent);
+            }
+        });
 
         viewHolder.List_Item_Layout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -103,7 +111,7 @@ public class ScheduleListAdapter_flat extends BaseAdapter {
         viewHolder.Mail_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(finalView.getContext(),"Почта: " + Item.getTeacher_Mail(), Toast.LENGTH_LONG).show();
+                Toast.makeText(finalView.getContext(), "Почта: " + Item.getTeacher_Mail(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -114,7 +122,8 @@ public class ScheduleListAdapter_flat extends BaseAdapter {
         final TextView Time0, Time1, Item_Name, Teacher_Name, Item_Mode, Item_Auditorium, Item_Building;
         final Button File_button, Mail_button, Phone_button;
         final ConstraintLayout List_Item_Layout;
-        ViewHolder(View view){
+
+        ViewHolder(View view) {
             Time0 = view.findViewById(R.id.textView_time0_flat);
             Time1 = view.findViewById(R.id.textView_time1_flat);
             Item_Name = view.findViewById(R.id.textView_item_name_flat);

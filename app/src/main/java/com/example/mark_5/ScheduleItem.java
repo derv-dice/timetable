@@ -17,10 +17,12 @@ public class ScheduleItem {
 
     private String Context_Table;           // Таблица, содержащая данный элемент
 
+    private String Item_Notes;              // Заметки
+
     ScheduleItem(String _Object_ID, String _Time0, String _Time1, String _Item_Name,
                  String _Teacher_Name, String _Item_Mode, String _Item_Auditorium,
                  String _Item_Building, String _Teacher_Phone, String _Teacher_Mail,
-                 String _Favourite, String _Context_Table){
+                 String _Favourite, String _Context_Table, String _Item_Notes){
 
         Object_Id = _Object_ID;
 
@@ -37,6 +39,8 @@ public class ScheduleItem {
         Favourite = _Favourite;
 
         Context_Table = _Context_Table;
+
+        Item_Notes = _Item_Notes;
     }
 
     public boolean Is_Favourite(){
@@ -81,5 +85,8 @@ public class ScheduleItem {
     }
     public String getContext_Table(){
         return Context_Table;
+    }
+    public String getItem_Notes() {
+        return Item_Notes;
     }
 }

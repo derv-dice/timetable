@@ -19,14 +19,14 @@ public class AddItemActivity extends AppCompatActivity {
     public String t1_str, t2_str, t3_str, t4_str, t5_str, t6_str, t7_str, t8_str, t9_str;
     private int Current_Day_Num = 0;
     private int Current_Week = 0;
-    private String items_DB = "save9.db";
+    private String items_DB = "save10.db";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
-        Bundle Data_From_Last_Activity = getIntent().getExtras();;
+        Bundle Data_From_Last_Activity = getIntent().getExtras();
         Current_Day_Num = Data_From_Last_Activity.getInt("Day");
         Current_Week = Data_From_Last_Activity.getInt("Week");
 
@@ -40,7 +40,7 @@ public class AddItemActivity extends AppCompatActivity {
         t8 = findViewById(R.id.editText12);
         t9 = findViewById(R.id.editText11);
 
-        BottomNavigationView Bot_Menu = findViewById(R.id.bot_menu_add_fragment);
+        BottomNavigationView Bot_Menu = findViewById(R.id.bottom_navigation_menu);
         Bot_Menu.setOnNavigationItemSelectedListener(bot_menu_listener);
 
         BottomNavigationView Top_menu = findViewById(R.id.top_navigation_menu);
