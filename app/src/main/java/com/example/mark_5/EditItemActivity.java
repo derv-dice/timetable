@@ -21,7 +21,7 @@ public class EditItemActivity extends AppCompatActivity {
     private int Current_Day_Num = 0;
     private int Current_Week = 0;
     private String Current_Row_ID = "0";
-    private String items_DB = "save10.db";
+    private String items_DB = "save11.db";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +117,7 @@ public class EditItemActivity extends AppCompatActivity {
         db.close();
         cursor.close();
 
-        BottomNavigationView Bot_Menu = findViewById(R.id.bot_menu_add_fragment);
+        BottomNavigationView Bot_Menu = findViewById(R.id.bottom_navigation_menu);
         Bot_Menu.setOnNavigationItemSelectedListener(bot_menu_listener);
 
         BottomNavigationView Top_menu = findViewById(R.id.top_navigation_menu);

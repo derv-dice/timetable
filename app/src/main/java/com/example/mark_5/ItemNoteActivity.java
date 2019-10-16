@@ -19,8 +19,8 @@ public class ItemNoteActivity extends AppCompatActivity {
     public TextView textView;
     public EditText editText;
 
-    public String item_name, note;
-    private String items_DB = "save10.db";
+    private String item_name, note;
+    private String items_DB = "save11.db";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,34 +63,25 @@ public class ItemNoteActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.ok_button_menu:
+
+                    note = editText.getText().toString();
+
                     ContentValues Val = new ContentValues();
                     Val.put("Item_Notes", note);
 
                     // Поле заметок обновляется во всех строках, содержащих одинаковое название предмета
                     SQLiteDatabase db = getApplicationContext().openOrCreateDatabase(items_DB, MODE_PRIVATE, null);
-                    db.beginTransaction();
 
-                    db.update("Monday_1", Val, "Item_Notes = " + item_name, null);
-/*
-                    db.update("Tuesday_1", Val, "Item_Notes = " + item_name, null);
-                    db.update("Wednesday_1", Val, "Item_Notes = " + item_name, null);
-                    db.update("Thursday_1", Val, "Item_Notes = " + item_name, null);
-                    db.update("Friday_1", Val, "Item_Notes = " + item_name, null);
-                    db.update("Saturday_1", Val, "Item_Notes = " + item_name, null);
-                    db.update("Sunday_1", Val, "Item_Notes = " + item_name, null);
+                    String[] Temp_Array = {"Monday_1", "Tuesday_1", "Wednesday_1", "Thursday_1", "Friday_1", "Saturday_1", "Sunday_1",
+                            "Monday_2", "Tuesday_2", "Wednesday_2", "Thursday_2", "Friday_2", "Saturday_2", "Sunday_2"};
 
-                    db.update("Monday_2", Val, "Item_Notes = " + item_name, null);
-                    db.update("Tuesday_2", Val, "Item_Notes = " + item_name, null);
-                    db.update("Wednesday_2", Val, "Item_Notes = " + item_name, null);
-                    db.update("Thursday_2", Val, "Item_Notes = " + item_name, null);
-                    db.update("Friday_2", Val, "Item_Notes = " + item_name, null);
-                    db.update("Saturday_2", Val, "Item_Notes = " + item_name, null);
-                    db.update("Sunday_2", Val, "Item_Notes = " + item_name, null);
+                    for (int i = 0; i < 13; i++) {
+                        db.beginTransaction();
+                        db.update(Temp_Array[i], Val, "Item_name = " + item_name, null);
+                        db.setTransactionSuccessful();
+                        db.endTransaction();
+                    }
 
- */
-
-                    db.setTransactionSuccessful();
-                    db.endTransaction();
                     db.close();
 
                     Intent intent = new Intent(ItemNoteActivity.this, MainActivity.class);
@@ -100,7 +91,6 @@ public class ItemNoteActivity extends AppCompatActivity {
             return true;
         }
     };
-
 
 
 }
