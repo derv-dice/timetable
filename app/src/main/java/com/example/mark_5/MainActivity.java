@@ -1,6 +1,7 @@
 package com.example.mark_5;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -38,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private int Week = 1;
     private Button Week_Btn;
 
-    private int Selected_Item_Position = 0;
     private BottomNavigationView edit_mode_menu;
 
     private String items_DB = "save9.db";
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private ScheduleListAdapter_flat Main_Array_List_Adapter;
     private String current_row_id = "0";
     private Button patch;
+
+    private AlertDialog.Builder MessageBox;
 
     @Override
     protected void onResume() {
@@ -169,7 +172,100 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        //
+        MessageBox = new AlertDialog.Builder(MainActivity.this);
+        MessageBox.setMessage("Вы действительно хотите удалить этот элемент?");
+        MessageBox.setIcon(R.drawable.ic_delete_black_24dp);
+
+        MessageBox.setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+                delete_row();
+            }
+        });
+        MessageBox.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+
+            }
+        });
+        MessageBox.setCancelable(true);
     }
+
+    private void delete_row(){
+        SQLiteDatabase db = getApplicationContext().openOrCreateDatabase(items_DB, MODE_PRIVATE, null);
+        switch (Week) {  // В зависимости от текущей недели и дня недели выбирается нужная таблица из базы данных save_n.db
+            case 1:
+                switch (Current_Day_Num) {
+                    case 1:
+                        db.delete("Monday_1", "Object_Id = ?", new String[]{current_row_id});
+                        db.close();
+                        break;
+                    case 2:
+                        db.delete("Tuesday_1", "Object_Id = ?", new String[]{current_row_id});
+                        db.close();
+                        break;
+                    case 3:
+                        db.delete("Wednesday_1", "Object_Id = ?", new String[]{current_row_id});
+                        db.close();
+                        break;
+                    case 4:
+                        db.delete("Thursday_1", "Object_Id = ?", new String[]{current_row_id});
+                        db.close();
+                        break;
+                    case 5:
+                        db.delete("Friday_1", "Object_Id = ?", new String[]{current_row_id});
+                        db.close();
+                        break;
+                    case 6:
+                        db.delete("Saturday_1", "Object_Id = ?", new String[]{current_row_id});
+                        db.close();
+                        break;
+                    case 7:
+                        db.delete("Sunday_1", "Object_Id = ?", new String[]{current_row_id});
+                        db.close();
+                        break;
+                }
+                break;
+            case 2:
+                switch (Current_Day_Num) {
+                    case 1:
+                        db.delete("Monday_2", "Object_Id = ?", new String[]{current_row_id});
+                        db.close();
+                        break;
+                    case 2:
+                        db.delete("Tuesday_2", "Object_Id = ?", new String[]{current_row_id});
+                        db.close();
+                        break;
+                    case 3:
+                        db.delete("Wednesday_2", "Object_Id = ?", new String[]{current_row_id});
+                        db.close();
+                        break;
+                    case 4:
+                        db.delete("Thursday_2", "Object_Id = ?", new String[]{current_row_id});
+                        db.close();
+                        break;
+                    case 5:
+                        db.delete("Friday_2", "Object_Id = ?", new String[]{current_row_id});
+                        db.close();
+                        break;
+                    case 6:
+                        db.delete("Saturday_2", "Object_Id = ?", new String[]{current_row_id});
+                        db.close();
+                        break;
+                    case 7:
+                        db.delete("Sunday_2", "Object_Id = ?", new String[]{current_row_id});
+                        db.close();
+                        break;
+                }
+                break;
+        }
+        Toast.makeText(MainActivity.this, "Предмет удален", Toast.LENGTH_LONG).show();
+        update_Main_ListView(Week, Current_Day_Num);
+        edit_mode_menu.setEnabled(false);
+        edit_mode_menu.setVisibility(View.INVISIBLE);
+        patch.setVisibility(View.INVISIBLE);
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void Week_Mode_Calculate() {
@@ -182,9 +278,6 @@ public class MainActivity extends AppCompatActivity {
         Calendar date2 = Calendar.getInstance();
         int week = date2.get(Calendar.WEEK_OF_YEAR) - date1.get(Calendar.WEEK_OF_YEAR);
 
-        //int visual_week = week+1;
-
-        //Toast.makeText(getBaseContext(), "Сейчас " + visual_week + " неделя", Toast.LENGTH_LONG).show();
 
         if (week % 2 == 0) {
             Week = 2;
@@ -342,79 +435,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.delete_button:
-                    SQLiteDatabase db = getApplicationContext().openOrCreateDatabase(items_DB, MODE_PRIVATE, null);
-                    switch (Week) {  // В зависимости от текущей недели и дня недели выбирается нужная таблица из базы данных save_n.db
-                        case 1:
-                            switch (Current_Day_Num) {
-                                case 1:
-                                    db.delete("Monday_1", "Object_Id = ?", new String[]{current_row_id});
-                                    db.close();
-                                    break;
-                                case 2:
-                                    db.delete("Tuesday_1", "Object_Id = ?", new String[]{current_row_id});
-                                    db.close();
-                                    break;
-                                case 3:
-                                    db.delete("Wednesday_1", "Object_Id = ?", new String[]{current_row_id});
-                                    db.close();
-                                    break;
-                                case 4:
-                                    db.delete("Thursday_1", "Object_Id = ?", new String[]{current_row_id});
-                                    db.close();
-                                    break;
-                                case 5:
-                                    db.delete("Friday_1", "Object_Id = ?", new String[]{current_row_id});
-                                    db.close();
-                                    break;
-                                case 6:
-                                    db.delete("Saturday_1", "Object_Id = ?", new String[]{current_row_id});
-                                    db.close();
-                                    break;
-                                case 7:
-                                    db.delete("Sunday_1", "Object_Id = ?", new String[]{current_row_id});
-                                    db.close();
-                                    break;
-                            }
-                            break;
-                        case 2:
-                            switch (Current_Day_Num) {
-                                case 1:
-                                    db.delete("Monday_2", "Object_Id = ?", new String[]{current_row_id});
-                                    db.close();
-                                    break;
-                                case 2:
-                                    db.delete("Tuesday_2", "Object_Id = ?", new String[]{current_row_id});
-                                    db.close();
-                                    break;
-                                case 3:
-                                    db.delete("Wednesday_2", "Object_Id = ?", new String[]{current_row_id});
-                                    db.close();
-                                    break;
-                                case 4:
-                                    db.delete("Thursday_2", "Object_Id = ?", new String[]{current_row_id});
-                                    db.close();
-                                    break;
-                                case 5:
-                                    db.delete("Friday_2", "Object_Id = ?", new String[]{current_row_id});
-                                    db.close();
-                                    break;
-                                case 6:
-                                    db.delete("Saturday_2", "Object_Id = ?", new String[]{current_row_id});
-                                    db.close();
-                                    break;
-                                case 7:
-                                    db.delete("Sunday_2", "Object_Id = ?", new String[]{current_row_id});
-                                    db.close();
-                                    break;
-                            }
-                            break;
-                    }
-                    Toast.makeText(MainActivity.this, "Предмет удален", Toast.LENGTH_LONG).show();
-                    update_Main_ListView(Week, Current_Day_Num);
-                    edit_mode_menu.setEnabled(false);
-                    edit_mode_menu.setVisibility(View.INVISIBLE);
-                    patch.setVisibility(View.INVISIBLE);
-                    break;
+                    MessageBox.show();
             }
 
             return true;

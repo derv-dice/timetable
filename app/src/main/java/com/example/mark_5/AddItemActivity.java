@@ -42,7 +42,23 @@ public class AddItemActivity extends AppCompatActivity {
 
         BottomNavigationView Bot_Menu = findViewById(R.id.bot_menu_add_fragment);
         Bot_Menu.setOnNavigationItemSelectedListener(bot_menu_listener);
+
+        BottomNavigationView Top_menu = findViewById(R.id.top_navigation_menu);
+        Top_menu.setOnNavigationItemSelectedListener(top_navigation_menu);
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener top_navigation_menu = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            switch (menuItem.getItemId()) {
+                case R.id.return_back:
+                    Intent intent = new Intent(AddItemActivity.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(intent);
+            }
+            return true;
+        }
+    };
 
     private BottomNavigationView.OnNavigationItemSelectedListener bot_menu_listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
