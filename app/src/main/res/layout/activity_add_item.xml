@@ -231,16 +231,16 @@
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bot_menu_add_fragment"
+        android:id="@+id/bottom_navigation_menu"
         android:layout_width="wrap_content"
         android:layout_height="42dp"
         android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         android:background="@color/colorDarkGray"
         app:itemBackground="@color/Dark_Theme_Gray"
         app:itemIconTint="@color/Dark_Theme_Font_Light"
         app:itemTextColor="@color/colorLiteGray"
         app:labelVisibilityMode="unlabeled"
-        android:layout_gravity="bottom"
         app:menu="@menu/add_item_bottom_menu"
         tools:layout_editor_absoluteY="743dp">
 

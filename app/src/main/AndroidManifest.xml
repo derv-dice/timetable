@@ -9,6 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
@@ -16,19 +17,21 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-
             </intent-filter>
         </activity>
 
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme" />
 
-        <activity android:name=".SettingsActivity"/>
+        <activity
+            android:name=".ItemNoteActivity" />
+
+        <activity android:name=".SettingsActivity" />
+
         <activity android:name=".AddItemActivity" />
-        <activity android:name=".EditItemActivity" />
 
+        <activity android:name=".EditItemActivity" />
     </application>
 
 </manifest>

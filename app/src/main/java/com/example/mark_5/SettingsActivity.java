@@ -76,7 +76,7 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             switch (menuItem.getItemId()) {
-                case R.id.aply_button_menu:
+                case R.id.ok_button_menu:
 
                     // Дата отсчета четной/нечетной недели
                     SharedPreferences.Editor prefEditor = settings.edit();

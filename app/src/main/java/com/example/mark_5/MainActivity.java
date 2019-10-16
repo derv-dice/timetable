@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView edit_mode_menu;
 
-    private String items_DB = "save9.db";
+    private String items_DB = "save10.db";
     private ArrayList<ScheduleItem> Main_Array_List;
     private ScheduleListAdapter_flat Main_Array_List_Adapter;
     private String current_row_id = "0";
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         db.execSQL("CREATE TABLE IF NOT EXISTS " + table_name + " (Object_Id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "Time0 TEXT, Time1 TEXT, Item_name TEXT, Teacher_name TEXT, Item_mode TEXT, " +
                 "Item_auditorium TEXT, Item_building TEXT, Teacher_Phone TEXT, " +
-                "Teacher_Mail TEXT, Favourite TEXT, Context_Table TEXT)");
+                "Teacher_Mail TEXT, Favourite TEXT, Context_Table TEXT, Item_Notes TEXT)");
         db.close();
     }
 
@@ -170,6 +170,13 @@ public class MainActivity extends AppCompatActivity {
                 edit_mode_menu.setVisibility(View.VISIBLE);
                 patch.setVisibility(View.VISIBLE);
                 return true;
+            }
+        });
+
+        Main_ListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, "Хуяк", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -399,7 +406,9 @@ public class MainActivity extends AppCompatActivity {
 
                 String Context_Table = cursor.getString(11);
 
-                Main_Array_List.add(new ScheduleItem(Object_Id, Time0, Time1, Item_name, Teacher_name, Item_mode, Item_auditorium, Item_building, Teacher_Phone, Teacher_Mail, Favourite, Context_Table));
+                String Item_Notes = cursor.getString(12);
+
+                Main_Array_List.add(new ScheduleItem(Object_Id, Time0, Time1, Item_name, Teacher_name, Item_mode, Item_auditorium, Item_building, Teacher_Phone, Teacher_Mail, Favourite, Context_Table, Item_Notes));
             }
             while (cursor.moveToNext());
         }
