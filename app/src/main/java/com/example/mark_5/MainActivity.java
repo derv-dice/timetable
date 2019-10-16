@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView edit_mode_menu;
 
-    private String items_DB = "save10.db";
+    private String items_DB = "save11.db";
     private ArrayList<ScheduleItem> Main_Array_List;
     private ScheduleListAdapter_flat Main_Array_List_Adapter;
     private String current_row_id = "0";

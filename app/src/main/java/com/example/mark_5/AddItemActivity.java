@@ -19,7 +19,7 @@ public class AddItemActivity extends AppCompatActivity {
     public String t1_str, t2_str, t3_str, t4_str, t5_str, t6_str, t7_str, t8_str, t9_str;
     private int Current_Day_Num = 0;
     private int Current_Week = 0;
-    private String items_DB = "save10.db";
+    private String items_DB = "save11.db";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
