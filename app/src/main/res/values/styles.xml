@@ -12,12 +12,18 @@
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
-    <style name="DatePickerTheme" parent="ThemeOverlay.AppCompat.Dark">
-
-        <item name="colorAccent">@color/Dark_Theme_Font_Light</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+    <style name="DatePickerTheme_Dark" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:layout_gravity">center</item>
+        <item name="colorAccent">@color/Dark_Theme_Gray</item>                          <!--header background-->
+        <item name="android:windowBackground">@color/Dark_Theme_Gray_Dark</item>        <!--calendar background-->
+        <item name="colorControlActivated">@color/Mark_Checked</item>                   <!--selected day-->
+        <item name="colorControlHighlight">@color/Dark_Theme_Font_Dark</item>           <!--focusable day-->
+        <item name="android:textColorPrimary">@color/Dark_Theme_Font_Light</item>       <!--days of the month-->
+        <item name="android:textColorSecondary">@color/Dark_Theme_Font_Dark</item>      <!--days of the week-->
+        <item name="textColorAlertDialogListItem">@color/Dark_Theme_Font_Light</item>
     </style>
+
+
 
 
 

@@ -1,7 +1,6 @@
 package com.example.mark_5;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -82,15 +81,15 @@ public class SettingsActivity extends AppCompatActivity {
     };
 
     public void setDate(View v) {
-        /*
-        DatePickerDialog dialog = new DatePickerDialog(SettingsActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK, d,
-         */
-        DatePickerDialog dialog = new DatePickerDialog(SettingsActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK, d,
+        DatePickerDialog dialog = new DatePickerDialog(SettingsActivity.this, R.style.DatePickerTheme_Dark, d,
                 date.get(Calendar.YEAR),
                 date.get(Calendar.MONTH),
                 date.get(Calendar.DAY_OF_MONTH));
 
         dialog.show();
+        dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.Mark_Checked));
+        dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setText("Выбрать");
+        dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.Dark_Theme_Font_Light));
     }
 
     DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
