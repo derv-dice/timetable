@@ -88,8 +88,6 @@ public class AddItemActivity extends AppCompatActivity {
 
             Val.put("Favourite", "0");
 
-
-
             SQLiteDatabase db = getApplicationContext().openOrCreateDatabase(items_DB, MODE_PRIVATE, null);
 
             switch (Current_Week){
