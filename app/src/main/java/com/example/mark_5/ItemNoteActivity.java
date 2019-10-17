@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,7 @@ public class ItemNoteActivity extends AppCompatActivity {
     public TextView textView;
     public EditText editText;
 
-    private String item_name, note;
+    public String item_name, note;
     private String items_DB = "save11.db";
 
     @Override
@@ -75,14 +76,18 @@ public class ItemNoteActivity extends AppCompatActivity {
                     String[] Temp_Array = {"Monday_1", "Tuesday_1", "Wednesday_1", "Thursday_1", "Friday_1", "Saturday_1", "Sunday_1",
                             "Monday_2", "Tuesday_2", "Wednesday_2", "Thursday_2", "Friday_2", "Saturday_2", "Sunday_2"};
 
-                    for (int i = 0; i < 13; i++) {
-                        db.beginTransaction();
-                        db.update(Temp_Array[i], Val, "Item_name = " + item_name, null);
-                        db.setTransactionSuccessful();
-                        db.endTransaction();
+                    try {
+                        for (int i = 0; i < 13; i++) {
+                            db.beginTransaction();
+                            db.update(Temp_Array[i], Val, "Item_name = '" + item_name + "'", null);
+                            db.setTransactionSuccessful();
+                            db.endTransaction();
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(getBaseContext(), e.toString(), Toast.LENGTH_LONG).show();
+                    } finally {
+                        db.close();
                     }
-
-                    db.close();
 
                     Intent intent = new Intent(ItemNoteActivity.this, MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
