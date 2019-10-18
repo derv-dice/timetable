@@ -19,4 +19,14 @@
     <string name="return_back">Назад</string>
     <string name="Aply">Принять изменения</string>
     <string name="time_divider">—</string>
+    <string name="edit_header">Редактирование</string>
+    <string name="hint1">Начало пары</string>
+    <string name="hint2">Конец пары</string>
+    <string name="hint3">Название предмета</string>
+    <string name="hint4">Имя преподавателя</string>
+    <string name="hint5">Номер аудитории</string>
+    <string name="hint6">Номер корпуса</string>
+    <string name="hint4_5">Тип занятия (лекция, семинар и т.д.)</string>
+    <string name="hint8">Номер телефона преподавателя</string>
+    <string name="hint9">E-mail преподавателя</string>
 </resources>

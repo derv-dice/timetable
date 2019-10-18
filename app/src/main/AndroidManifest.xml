@@ -7,8 +7,8 @@
         android:icon="@drawable/ic_app_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-
+        android:theme="@style/AppTheme"
+        >
 
         <activity
             android:name=".SplashActivity"
@@ -25,13 +25,17 @@
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name=".ItemNoteActivity" />
+            android:name=".ItemNoteActivity"
+            />
 
-        <activity android:name=".SettingsActivity" />
+        <activity android:name=".SettingsActivity"
+            />
 
-        <activity android:name=".AddItemActivity" />
+        <activity android:name=".AddItemActivity"
+            />
 
-        <activity android:name=".EditItemActivity" />
+        <activity android:name=".EditItemActivity"
+            />
     </application>
 
 </manifest>
