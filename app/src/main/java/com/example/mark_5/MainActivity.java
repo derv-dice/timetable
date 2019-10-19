@@ -10,6 +10,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -47,8 +49,12 @@ public class MainActivity extends AppCompatActivity {
     private ScheduleListAdapter_flat Main_Array_List_Adapter;
     private String current_row_id = "0";
     private Button patch;
+    private boolean curent_patch = false;
 
     private AlertDialog.Builder MessageBox;
+
+    Animation alpha_show;
+    Animation alpha_hide;
 
     @Override
     protected void onResume() {
@@ -68,6 +74,49 @@ public class MainActivity extends AppCompatActivity {
         db.close();
     }
 
+    void show_edit_menu() {
+        BottomNavigationView edit_menu = findViewById(R.id.edit_mode_menu);
+        BottomNavigationView main_menu = findViewById(R.id.bottom_navigation_menu);
+
+        edit_menu.setEnabled(true);
+        edit_menu.setVisibility(View.VISIBLE);
+        edit_menu.startAnimation(alpha_show);
+    }
+
+    void hide_edit_menu() {
+        BottomNavigationView edit_menu = findViewById(R.id.edit_mode_menu);
+        BottomNavigationView main_menu = findViewById(R.id.bottom_navigation_menu);
+
+        if (curent_patch == true) edit_menu.startAnimation(alpha_hide);
+        edit_menu.setVisibility(View.INVISIBLE);
+        edit_menu.setEnabled(false);
+    }
+
+    void move_list_from_left() {
+        Animation from_left_slide = AnimationUtils.loadAnimation(this, R.anim.move_from_left);
+        Main_ListView.setVisibility(View.VISIBLE);
+        Main_ListView.startAnimation(from_left_slide);
+    }
+
+    void move_list_to_left() {
+        Animation to_left_slide = AnimationUtils.loadAnimation(this, R.anim.move_to_left);
+        Main_ListView.startAnimation(to_left_slide);
+        Main_ListView.setVisibility(View.INVISIBLE);
+    }
+
+    void move_list_from_right() {
+        Animation from_right_slide = AnimationUtils.loadAnimation(this, R.anim.move_from_right);
+        Main_ListView.setVisibility(View.VISIBLE);
+        Main_ListView.startAnimation(from_right_slide);
+    }
+
+    void move_list_to_right() {
+        Animation to_right_slide = AnimationUtils.loadAnimation(this, R.anim.move_to_right);
+        Main_ListView.startAnimation(to_right_slide);
+        Main_ListView.setVisibility(View.INVISIBLE);
+    }
+
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -79,6 +128,9 @@ public class MainActivity extends AppCompatActivity {
 
         patch = findViewById(R.id.patch);
         patch.setVisibility(View.INVISIBLE);
+
+        alpha_hide = AnimationUtils.loadAnimation(this, R.anim.alpha_hide);
+        alpha_show = AnimationUtils.loadAnimation(this, R.anim.alpha_show);
 
         first_create_table(items_DB, "Monday_1");
         first_create_table(items_DB, "Tuesday_1");
@@ -166,9 +218,10 @@ public class MainActivity extends AppCompatActivity {
                 ScheduleItem Item = Main_Array_List.get(position);
                 current_row_id = Item.getObject_Id();
 
-                edit_mode_menu.setEnabled(true);
-                edit_mode_menu.setVisibility(View.VISIBLE);
+                show_edit_menu();
+
                 patch.setVisibility(View.VISIBLE);
+                curent_patch = true;
                 return true;
             }
         });
@@ -181,9 +234,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //
-        MessageBox = new AlertDialog.Builder(MainActivity.this);
+        MessageBox = new AlertDialog.Builder(MainActivity.this, R.style.AlertDialogTheme_Dark);
         MessageBox.setMessage("Вы действительно хотите удалить этот элемент?");
         MessageBox.setIcon(R.drawable.ic_delete_black_24dp);
+        //MessageBox
 
         MessageBox.setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
@@ -198,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
         MessageBox.setCancelable(true);
     }
 
-    private void delete_row(){
+    private void delete_row() {
         SQLiteDatabase db = getApplicationContext().openOrCreateDatabase(items_DB, MODE_PRIVATE, null);
         switch (Week) {  // В зависимости от текущей недели и дня недели выбирается нужная таблица из базы данных save_n.db
             case 1:
@@ -268,9 +322,11 @@ public class MainActivity extends AppCompatActivity {
         }
         Toast.makeText(MainActivity.this, "Предмет удален", Toast.LENGTH_LONG).show();
         update_Main_ListView(Week, Current_Day_Num);
-        edit_mode_menu.setEnabled(false);
-        edit_mode_menu.setVisibility(View.INVISIBLE);
+
+        hide_edit_menu();
+
         patch.setVisibility(View.INVISIBLE);
+        curent_patch = false;
     }
 
 
@@ -306,8 +362,11 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (edit_mode_menu.isEnabled()) {
             patch.setVisibility(View.INVISIBLE);
-            edit_mode_menu.setEnabled(false);
-            edit_mode_menu.setVisibility(View.INVISIBLE);
+
+            curent_patch = true;
+            hide_edit_menu();
+            curent_patch = false;
+
             update_Main_ListView(Week, Current_Day_Num);
         } else {
             finish();
@@ -324,13 +383,12 @@ public class MainActivity extends AppCompatActivity {
             Week_Btn.setText(R.string.Week_1);
         }
         update_Main_ListView(Week, Current_Day_Num);
-        edit_mode_menu.setEnabled(false);
-        edit_mode_menu.setVisibility(View.INVISIBLE);
-        patch.setVisibility(View.INVISIBLE);
+
+        hide_edit_menu();
     }
 
     public void update_Main_ListView(Integer Week, Integer Day) {
-        Main_ListView = findViewById(R.id.List);
+        Main_ListView = findViewById(R.id.List_front);
         Main_Array_List = new ArrayList<ScheduleItem>();
         SQLiteDatabase db = getApplicationContext().openOrCreateDatabase(items_DB, MODE_PRIVATE, null);
 
@@ -412,10 +470,10 @@ public class MainActivity extends AppCompatActivity {
             }
             while (cursor.moveToNext());
         }
+
         Main_Array_List_Adapter = new ScheduleListAdapter_flat(MainActivity.this, R.layout.list_item_layout_v3_flat, Main_Array_List);
         Main_ListView.setAdapter(Main_Array_List_Adapter);
         check_day_for_empty(cursor.getCount());
-
         cursor.close();
         db.close();
     }
@@ -512,18 +570,22 @@ public class MainActivity extends AppCompatActivity {
             }
             Week_Mode_Calculate();
             update_Main_ListView(Week, Current_Day_Num);
-            edit_mode_menu.setEnabled(false);
-            edit_mode_menu.setVisibility(View.INVISIBLE);
+
+            hide_edit_menu();
+
             patch.setVisibility(View.INVISIBLE);
+            curent_patch = false;
             return true;
         }
     };
 
     public void Day_Change_Right() {
         TextView Header = findViewById(R.id.day_of_the_week);
-        edit_mode_menu.setEnabled(false);
-        edit_mode_menu.setVisibility(View.INVISIBLE);
+
+        hide_edit_menu();
+
         patch.setVisibility(View.INVISIBLE);
+        curent_patch = false;
         switch (Header.getText().toString()) {
             case "Понедельник":
                 Header.setText("Воскресенье");
@@ -566,9 +628,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void Day_Change_Left() {
         TextView Header = findViewById(R.id.day_of_the_week);
-        edit_mode_menu.setEnabled(false);
-        edit_mode_menu.setVisibility(View.INVISIBLE);
+
+        hide_edit_menu();
+
         patch.setVisibility(View.INVISIBLE);
+        curent_patch = false;
         switch (Header.getText().toString()) {
             case "Понедельник":
                 Header.setText("Вторник");

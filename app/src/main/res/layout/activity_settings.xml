@@ -140,11 +140,14 @@
                 android:layout_height="35dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
+                android:checked="true"
+                android:clickable="false"
                 android:textColorLink="@color/Mark_Checked"
                 android:theme="@style/AppTheme"
                 app:layout_constraintBottom_toTopOf="@+id/guideline2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline" />
+                app:layout_constraintTop_toTopOf="@+id/guideline"
+                tools:checked="true" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -213,6 +216,8 @@
                 android:layout_height="35dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
+                android:checked="false"
+                android:enabled="false"
                 android:textColorLink="@color/Mark_Checked"
                 android:theme="@style/AppTheme"
                 app:layout_constraintBottom_toTopOf="@+id/guideline15"

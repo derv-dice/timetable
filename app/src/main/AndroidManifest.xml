@@ -36,6 +36,7 @@
 
         <activity android:name=".EditItemActivity"
             />
+
     </application>
 
 </manifest>

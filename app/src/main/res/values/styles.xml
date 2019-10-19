@@ -23,8 +23,16 @@
         <item name="textColorAlertDialogListItem">@color/Dark_Theme_Font_Light</item>
     </style>
 
+    <style name="AlertDialogTheme_Dark" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:background">@color/Dark_Theme_Gray</item>
+        <item name="android:textColorPrimary">@color/Dark_Theme_Font_Light</item>
+        <item name="colorAccent">@color/Dark_Theme_Font_Light</item>
+        <item name="buttonBarPositiveButtonStyle">@style/positive</item>
+    </style>
 
-
-
+    <style name="positive">
+        <item name="android:textColor">@color/Mark_Checked</item>
+        <item name="android:background">@color/Dark_Theme_Gray</item>
+    </style>
 
 </resources>
